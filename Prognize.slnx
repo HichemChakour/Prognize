@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Prognize.Api/Prognize.Api.csproj" />
+    <Project Path="src/Prognize.Solver/Prognize.Solver.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Prognize.Tests/Prognize.Tests.csproj" />
+  </Folder>
+</Solution>
