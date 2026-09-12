@@ -1,0 +1,25 @@
+.attributes {
+  margin-top: 1.75rem;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .25rem;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: .6rem;
+    margin-top: .6rem;
+  }
+
+  &__empty {
+    margin: .75rem 0 0;
+    font-size: .88rem;
+    color: var(--text-muted);
+  }
+}
+
+.alert { margin-top: 1.25rem; }

@@ -13,7 +13,28 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [authGuard],
-    loadComponent: () => import('./features/dashboard/dashboard').then((m) => m.Dashboard),
+    loadComponent: () => import('./shared/layout/shell/shell').then((m) => m.Shell),
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./features/dashboard/dashboard').then((m) => m.Dashboard),
+      },
+      {
+        path: 'resources',
+        loadComponent: () =>
+          import('./features/resources/resource-list/resource-list').then((m) => m.ResourceList),
+      },
+      {
+        path: 'resources/new',
+        loadComponent: () =>
+          import('./features/resources/resource-form/resource-form').then((m) => m.ResourceForm),
+      },
+      {
+        path: 'resources/:id/edit',
+        loadComponent: () =>
+          import('./features/resources/resource-form/resource-form').then((m) => m.ResourceForm),
+      },
+    ],
   },
   { path: '**', redirectTo: '' },
 ];

@@ -1,14 +1,26 @@
-<header class="topbar">
-  <span class="brand">Prognize</span>
-  @if (auth.user(); as user) {
-    <span class="org">{{ user.organizationName }}</span>
-    <span class="spacer"></span>
-    <span class="me">{{ user.displayName }} · {{ user.role }}</span>
-    <button type="button" (click)="auth.logout()">Déconnexion</button>
-  }
+<header class="page-header">
+  <div>
+    <h1>Bonjour {{ auth.user()?.displayName }}</h1>
+    <p class="page-header__subtitle">{{ auth.user()?.organizationName }}</p>
+  </div>
 </header>
 
-<main class="content">
-  <h1>Tableau de bord</h1>
-  <p>Connecté. Les ressources arrivent en Phase 1.</p>
-</main>
+<section class="cards">
+  <a routerLink="/resources" class="card card--link">
+    <span class="card__icon">▦</span>
+    <span class="card__title">Ressources</span>
+    <span class="card__text">Salles, personnes, équipements — tout ce qui peut être planifié.</span>
+  </a>
+
+  <div class="card card--disabled">
+    <span class="card__icon">◷</span>
+    <span class="card__title">Activités</span>
+    <span class="card__text">Phase 2 — les créneaux à placer.</span>
+  </div>
+
+  <div class="card card--disabled">
+    <span class="card__icon">▤</span>
+    <span class="card__title">Planning</span>
+    <span class="card__text">Phase 3 — la vue calendrier.</span>
+  </div>
+</section>

@@ -1,0 +1,85 @@
+<header class="page-header">
+  <div>
+    <h1>{{ isEdit() ? 'Modifier la ressource' : 'Nouvelle ressource' }}</h1>
+    <p class="page-header__subtitle">Une salle, une personne, un équipement… tout ce qui peut être planifié.</p>
+  </div>
+  <a routerLink="/resources" class="btn btn--ghost">← Retour</a>
+</header>
+
+@if (loading()) {
+  <p class="state">Chargement…</p>
+} @else {
+  <form class="panel" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-grid">
+      <label class="field">
+        <span>Nom</span>
+        <input type="text" formControlName="name" placeholder="A101, Mme Dupont, Vidéoprojecteur 3…" />
+        @if (form.controls.name.touched && form.controls.name.invalid) {
+          <small class="field__error">Requis (200 caractères max).</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Type</span>
+        <input type="text" formControlName="kind" list="kind-suggestions" placeholder="room, teacher, equipment…" />
+        <datalist id="kind-suggestions">
+          @for (k of kindSuggestions; track k) {
+            <option [value]="k"></option>
+          }
+        </datalist>
+        @if (form.controls.kind.touched && form.controls.kind.invalid) {
+          <small class="field__error">Requis.</small>
+        } @else {
+          <small class="field__hint">Libre. Sera mis en minuscules.</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Capacité</span>
+        <input type="number" formControlName="capacity" min="1" placeholder="Laisser vide si non applicable" />
+        @if (form.controls.capacity.touched && form.controls.capacity.invalid) {
+          <small class="field__error">Doit être ≥ 1.</small>
+        }
+      </label>
+
+      @if (isEdit()) {
+        <label class="field">
+          <span>Statut</span>
+          <select formControlName="status">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </label>
+      }
+    </div>
+
+    <section class="attributes" formArrayName="attributes">
+      <div class="attributes__header">
+        <h2>Attributs</h2>
+        <button type="button" class="btn btn--sm btn--ghost" (click)="addAttribute()">+ Ajouter</button>
+      </div>
+      <p class="field__hint">Paires clé / valeur libres (bâtiment, étage, équipements…). Les nombres et true/false sont typés automatiquement.</p>
+
+      @for (group of attributes.controls; track group; let i = $index) {
+        <div class="attributes__row" [formGroupName]="i">
+          <input type="text" formControlName="key" placeholder="clé (ex: building)" />
+          <input type="text" formControlName="value" placeholder="valeur (ex: B)" />
+          <button type="button" class="btn btn--sm btn--danger" (click)="removeAttribute(i)" aria-label="Supprimer">✕</button>
+        </div>
+      } @empty {
+        <p class="attributes__empty">Aucun attribut.</p>
+      }
+    </section>
+
+    @if (error(); as message) {
+      <p class="alert alert--error">{{ message }}</p>
+    }
+
+    <div class="form-actions">
+      <a routerLink="/resources" class="btn btn--ghost">Annuler</a>
+      <button type="submit" class="btn btn--primary" [disabled]="saving()">
+        {{ saving() ? 'Enregistrement…' : isEdit() ? 'Enregistrer' : 'Créer' }}
+      </button>
+    </div>
+  </form>
+}

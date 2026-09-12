@@ -1,0 +1,73 @@
+<header class="page-header">
+  <div>
+    <h1>Ressources</h1>
+    <p class="page-header__subtitle">{{ resources().length }} au total</p>
+  </div>
+  @if (isAdmin()) {
+    <a routerLink="/resources/new" class="btn btn--primary">+ Nouvelle ressource</a>
+  }
+</header>
+
+@if (loading()) {
+  <p class="state">Chargement…</p>
+} @else if (error(); as message) {
+  <p class="alert alert--error">{{ message }}</p>
+} @else {
+  <div class="toolbar">
+    <label class="field field--inline">
+      <span>Type</span>
+      <select (change)="kindFilter.set($any($event.target).value || null)">
+        <option value="">Tous</option>
+        @for (k of kinds(); track k) {
+          <option [value]="k">{{ k }}</option>
+        }
+      </select>
+    </label>
+    <span class="toolbar__count">{{ filtered().length }} affichée(s)</span>
+  </div>
+
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Type</th>
+          <th class="num">Capacité</th>
+          <th>Statut</th>
+          @if (isAdmin()) {
+            <th class="actions"></th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (r of filtered(); track r.id) {
+          <tr>
+            <td class="strong">{{ r.name }}</td>
+            <td><span class="tag">{{ r.kind }}</span></td>
+            <td class="num">{{ r.capacity ?? '—' }}</td>
+            <td>
+              <span class="badge" [class.badge--ok]="r.status === 'Active'" [class.badge--off]="r.status === 'Inactive'">
+                {{ r.status === 'Active' ? 'Active' : 'Inactive' }}
+              </span>
+            </td>
+            @if (isAdmin()) {
+              <td class="actions">
+                <a [routerLink]="['/resources', r.id, 'edit']" class="btn btn--sm btn--ghost">Modifier</a>
+                <button type="button" class="btn btn--sm btn--danger" (click)="remove(r)">Supprimer</button>
+              </td>
+            }
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="empty">
+              Aucune ressource.
+              @if (isAdmin()) {
+                <a routerLink="/resources/new">Créer la première</a>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

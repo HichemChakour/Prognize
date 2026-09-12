@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Auth } from '../../core/auth/auth';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-dashboard',
   styleUrl: './dashboard.scss',
   templateUrl: './dashboard.html',
