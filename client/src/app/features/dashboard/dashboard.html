@@ -1,0 +1,14 @@
+<header class="topbar">
+  <span class="brand">Prognize</span>
+  @if (auth.user(); as user) {
+    <span class="org">{{ user.organizationName }}</span>
+    <span class="spacer"></span>
+    <span class="me">{{ user.displayName }} · {{ user.role }}</span>
+    <button type="button" (click)="auth.logout()">Déconnexion</button>
+  }
+</header>
+
+<main class="content">
+  <h1>Tableau de bord</h1>
+  <p>Connecté. Les ressources arrivent en Phase 1.</p>
+</main>

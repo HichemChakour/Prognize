@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #f4f5f7;
+  color: #1f2933;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .75rem 1.5rem;
+  background: #fff;
+  border-bottom: 1px solid #e4e7eb;
+
+  .brand { font-weight: 700; }
+  .org { color: #52606d; }
+  .spacer { flex: 1; }
+  .me { font-size: .9rem; }
+  button { padding: .4rem .8rem; border: 1px solid #cbd2d9; border-radius: 6px; background: #fff; cursor: pointer; font: inherit; }
+}
+
+.content { padding: 2rem 1.5rem; }
