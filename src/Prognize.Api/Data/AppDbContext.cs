@@ -18,6 +18,7 @@ public class AppDbContext : IdentityUserContext<AppUser, Guid>
     }
 
     public DbSet<Organization> Organizations => Set<Organization>();
+    public DbSet<Resource> Resources => Set<Resource>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -34,6 +35,9 @@ public class AppDbContext : IdentityUserContext<AppUser, Guid>
 
         builder.Entity<AppUser>()
             .HasQueryFilter(u => u.OrganizationId == _tenant.OrganizationId);
+
+        builder.Entity<Resource>()
+            .HasQueryFilter(r => r.OrganizationId == _tenant.OrganizationId);
     }
 
     public override int SaveChanges()

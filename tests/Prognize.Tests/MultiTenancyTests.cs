@@ -3,6 +3,7 @@ using Prognize.Api.Common.Tenancy;
 using Prognize.Api.Data;
 using Prognize.Api.Domain;
 using Prognize.Api.Domain.Enums;
+using Prognize.Tests.Support;
 
 namespace Prognize.Tests;
 
@@ -27,37 +28,21 @@ public class MultiTenancyTests : IAsyncLifetime
 {
     // Nom unique par execution : deux lancements en parallele ne se marchent
     // pas dessus, et un test qui plante ne pollue pas le suivant.
-    private readonly string _dbName = $"prognize_test_{Guid.NewGuid():N}";
-    private string ConnectionString =>
-        $"Host=localhost;Port=5432;Database={_dbName};Username=prognize;Password=prognize_dev_pwd";
+    private readonly TestDatabase _testDb = new();
 
     private Guid _orgA;
     private Guid _orgB;
 
-    /// <summary>
-    /// Fabrique un DbContext pour un tenant donne.
-    /// C'est ici que l'interface ITenantContext montre son interet : en prod
-    /// c'est HttpTenantContext (qui lit le JWT), en test c'est FixedTenantContext.
-    /// Le DbContext, lui, ne voit aucune difference.
-    /// </summary>
-    private AppDbContext CreateContext(Guid? tenantId)
-    {
-        var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseNpgsql(ConnectionString)
-            .UseSnakeCaseNamingConvention()
-            .Options;
-
-        return new AppDbContext(options, new FixedTenantContext(tenantId));
-    }
+    private AppDbContext CreateContext(Guid? tenantId) => _testDb.CreateContext(tenantId);
 
     public async Task InitializeAsync()
     {
         // tenant = null : aucun filtre ne s'applique et aucun estampillage
         // n'a lieu. C'est le mode "administrateur" dont on a besoin pour
         // fabriquer le jeu d'essai des DEUX organisations.
-        await using var db = CreateContext(null);
-        await db.Database.MigrateAsync();
+        await _testDb.MigrateAsync();
 
+        await using var db = CreateContext(null);
         var a = new Organization { Name = "Lycee A", Slug = "lycee-a" };
         var b = new Organization { Name = "Lycee B", Slug = "lycee-b" };
         db.Organizations.AddRange(a, b);
@@ -89,11 +74,7 @@ public class MultiTenancyTests : IAsyncLifetime
     }
 
     // Teardown : on supprime la base jetable.
-    public async Task DisposeAsync()
-    {
-        await using var db = CreateContext(null);
-        await db.Database.EnsureDeletedAsync();
-    }
+    public async Task DisposeAsync() => await _testDb.DisposeAsync();
 
     // =================================================================
     // VERROU 1 : LA LECTURE (global query filters)
