@@ -21,6 +21,9 @@ public class AppDbContext : IdentityUserContext<AppUser, Guid>
     public DbSet<Resource> Resources => Set<Resource>();
 
     public DbSet<Activity> Activities => Set<Activity>();
+    public DbSet<Schedule> Schedules => Set<Schedule>();
+    public DbSet<Assignment> Assignments => Set<Assignment>();
+    public DbSet<AssignmentResource> AssignmentResources => Set<AssignmentResource>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -43,6 +46,15 @@ public class AppDbContext : IdentityUserContext<AppUser, Guid>
 
         builder.Entity<Activity>()
             .HasQueryFilter(a => a.OrganizationId == _tenant.OrganizationId);
+
+        builder.Entity<Schedule>()
+            .HasQueryFilter(s => s.OrganizationId == _tenant.OrganizationId);
+
+        builder.Entity<Assignment>()
+            .HasQueryFilter(a => a.OrganizationId == _tenant.OrganizationId);
+
+        builder.Entity<AssignmentResource>()
+            .HasQueryFilter(ar => ar.OrganizationId == _tenant.OrganizationId);
     }
 
     public override int SaveChanges()
