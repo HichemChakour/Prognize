@@ -57,6 +57,9 @@ public class ResourcesController : ControllerBase
         if (await NameTakenAsync(kind, name, excludeId: null, ct))
             return Problem(statusCode: StatusCodes.Status409Conflict, title: $"Une ressource '{name}' de type '{kind}' existe déjà.");
 
+        if (FindInvalidWindow(request.Availability) is { } invalid)
+            return Problem(statusCode: StatusCodes.Status400BadRequest, title: invalid);
+
         var now = DateTimeOffset.UtcNow;
         var resource = new Resource
         {
@@ -65,6 +68,7 @@ public class ResourcesController : ControllerBase
             Kind = kind,
             Capacity = request.Capacity,
             Attributes = request.Attributes,
+            Availability = ToWindows(request.Availability),
             CreatedAt = now,
             UpdatedAt = now,
         };
@@ -89,11 +93,15 @@ public class ResourcesController : ControllerBase
         if (await NameTakenAsync(kind, name, excludeId: id, ct))
             return Problem(statusCode: StatusCodes.Status409Conflict, title: $"Une ressource '{name}' de type '{kind}' existe déjà.");
 
+        if (FindInvalidWindow(request.Availability) is { } invalid)
+            return Problem(statusCode: StatusCodes.Status400BadRequest, title: invalid);
+
         resource.Name = name;
         resource.Kind = kind;
         resource.Capacity = request.Capacity;
         resource.Status = request.Status;
         resource.Attributes = request.Attributes;
+        resource.Availability = ToWindows(request.Availability);
         resource.UpdatedAt = DateTimeOffset.UtcNow;
 
         await _db.SaveChangesAsync(ct);
@@ -118,6 +126,28 @@ public class ResourcesController : ControllerBase
     private Task<bool> NameTakenAsync(string kind, string name, Guid? excludeId, CancellationToken ct) =>
         _db.Resources.AnyAsync(r => r.Kind == kind && r.Name == name && r.Id != excludeId, ct);
 
+    private static string? FindInvalidWindow(IReadOnlyList<AvailabilityWindowDto>? windows)
+    {
+        if (windows is null)
+            return null;
+
+        foreach (var w in windows)
+        {
+            if (w.End <= w.Start)
+                return $"Fenêtre invalide le {w.Day} : la fin ({w.End}) doit être après le début ({w.Start}).";
+        }
+
+        return null;
+    }
+
+    private static List<AvailabilityWindow> ToWindows(IReadOnlyList<AvailabilityWindowDto>? dtos) =>
+        (dtos ?? [])
+            .OrderBy(w => w.Day).ThenBy(w => w.Start)
+            .Select(w => new AvailabilityWindow { Day = w.Day, Start = w.Start, End = w.End })
+            .ToList();
+
     private static ResourceDto ToDto(Resource r) =>
-        new(r.Id, r.Name, r.Kind, r.Capacity, r.Status, r.Attributes, r.CreatedAt, r.UpdatedAt);
+        new(r.Id, r.Name, r.Kind, r.Capacity, r.Status, r.Attributes,
+            r.Availability.Select(w => new AvailabilityWindowDto(w.Day, w.Start, w.End)).ToList(),
+            r.CreatedAt, r.UpdatedAt);
 }

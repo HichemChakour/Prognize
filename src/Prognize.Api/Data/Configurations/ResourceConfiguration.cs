@@ -31,6 +31,12 @@ public class ResourceConfiguration : IEntityTypeConfiguration<Resource>
         builder.Property(r => r.CreatedAt)
             .HasDefaultValueSql("now()");
 
+        builder.OwnsMany(r => r.Availability, w =>
+        {
+            w.ToJson();
+            w.Property(x => x.Day).HasConversion<string>();
+        });
+
         builder.HasIndex(r => new { r.OrganizationId, r.Kind, r.Name }).IsUnique();
     }
 }

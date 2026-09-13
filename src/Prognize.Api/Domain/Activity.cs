@@ -1,10 +1,9 @@
-using System.Text.Json;
 using Prognize.Api.Common.Tenancy;
 using Prognize.Api.Domain.Enums;
 
 namespace Prognize.Api.Domain;
 
-public class Resource : ITenantOwned
+public class Activity : ITenantOwned
 {
     public Guid Id { get; set; }
 
@@ -12,17 +11,15 @@ public class Resource : ITenantOwned
 
     public required string Name { get; set; }
 
-    public required string Kind { get; set; }
+    public int DurationMinutes { get; set; }
 
-    public int? Capacity { get; set; }
+    public int Priority { get; set; } = 3;
 
-    public ResourceStatus Status { get; set; } = ResourceStatus.Active;
+    public List<ResourceRequirement> Requirements { get; set; } = [];
 
-    public JsonElement? Attributes { get; set; }
+    public ActivityStatus Status { get; set; } = ActivityStatus.Active;
 
     public DateTimeOffset CreatedAt { get; set; }
 
     public DateTimeOffset UpdatedAt { get; set; }
-
-    public List<AvailabilityWindow> Availability { get; set; } = [];
 }
