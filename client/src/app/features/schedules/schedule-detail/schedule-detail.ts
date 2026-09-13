@@ -32,7 +32,17 @@ interface PlacedAssignment {
   height: number;
   lane: number;
   lanes: number;
+  color: string;
+  dimmed: boolean;
 }
+
+interface LegendEntry {
+  id: string;
+  name: string;
+  color: string;
+}
+
+const SERIES_COUNT = 6;
 
 @Component({
   imports: [RouterLink, AssignmentPanel, SolvePanel],
@@ -58,6 +68,11 @@ export class ScheduleDetail implements OnInit {
   readonly dayIndex = signal((new Date().getDay() + 6) % 7);
   readonly isMobile = this.viewport.isMobile;
   readonly panel = signal<PanelState | { mode: 'solve' } | null>(null);
+
+  /** Type de ressource qui pilote la couleur des blocs (null = premier type disponible). */
+  readonly colorKind = signal<string | null>(null);
+  /** Ressource mise en évidence via la légende (les autres blocs sont estompés). */
+  readonly highlightId = signal<string | null>(null);
 
   readonly isAdmin = computed(() => this.auth.user()?.role === 'Admin');
   readonly hours = Array.from(
@@ -94,11 +109,30 @@ export class ScheduleDetail implements OnInit {
       const ofDay = schedule.assignments
         .filter((a) => a.start.slice(0, 10) === dayKey)
         .sort((a, b) => a.start.localeCompare(b.start));
-      return this.layout(ofDay);
+      return this.layout(ofDay, this.colorById(), this.activeColorKind(), this.highlightId());
     });
   });
 
   readonly conflictCount = computed(() => this.schedule()?.conflictCount ?? 0);
+
+  readonly kinds = computed(() => [...new Set(this.resources().map((r) => r.kind))].sort());
+  readonly activeColorKind = computed(() => this.colorKind() ?? this.kinds()[0] ?? null);
+
+  /** Couleur stable par ressource du type choisi : ordre alphabétique → slot 1..6, au-delà « autres ». */
+  readonly legend = computed<LegendEntry[]>(() => {
+    const kind = this.activeColorKind();
+    if (!kind) return [];
+    return this.resources()
+      .filter((r) => r.kind === kind)
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map((r, i) => ({
+        id: r.id,
+        name: r.name,
+        color: i < SERIES_COUNT ? `var(--series-${i + 1})` : 'var(--series-other)',
+      }));
+  });
+
+  private readonly colorById = computed(() => new Map(this.legend().map((e) => [e.id, e.color])));
 
   readonly assignmentPanel = computed<PanelState | null>(() => {
     const p = this.panel();
@@ -210,7 +244,21 @@ export class ScheduleDetail implements OnInit {
     this.reload();
   }
 
-  private layout(assignments: Assignment[]): PlacedAssignment[] {
+  setColorKind(kind: string): void {
+    this.colorKind.set(kind);
+    this.highlightId.set(null);
+  }
+
+  toggleHighlight(id: string): void {
+    this.highlightId.update((current) => (current === id ? null : id));
+  }
+
+  private layout(
+    assignments: Assignment[],
+    colorById: Map<string, string>,
+    kind: string | null,
+    highlightId: string | null,
+  ): PlacedAssignment[] {
     const laneEnds: number[] = [];
     const placed = assignments.map((assignment) => {
       const start = minutesOfDay(new Date(assignment.start));
@@ -224,7 +272,10 @@ export class ScheduleDetail implements OnInit {
       }
       const top = ((start - DAY_START_HOUR * 60) / 60) * HOUR_HEIGHT;
       const height = Math.max(((end - start) / 60) * HOUR_HEIGHT, 18);
-      return { assignment, top, height, lane, lanes: 1 };
+      const pivot = assignment.resources.find((r) => r.kind === kind);
+      const color = (pivot && colorById.get(pivot.id)) ?? 'var(--series-other)';
+      const dimmed = highlightId !== null && pivot?.id !== highlightId;
+      return { assignment, top, height, lane, lanes: 1, color, dimmed };
     });
     const lanes = Math.max(1, laneEnds.length);
     return placed.map((p) => ({ ...p, lanes }));

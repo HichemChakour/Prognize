@@ -4,63 +4,104 @@
 :root {
   color-scheme: light;
 
-  --bg: #f5f6f8;
-  --surface: #ffffff;
-  --surface-hover: #f0f2f5;
-  --surface-tint: rgba(47, 111, 237, 0.04);
-  --border: #e3e6ea;
-  --text: #1c2430;
-  --text-muted: #6b7684;
-  --on-primary: #ffffff;
+  /* ---- Brand : Coral #FF7F50 (action) · Teal #0F766E (chrome) · Sand #F5E6CA (toile) ---- */
 
-  --primary: #2f6fed;
-  --primary-hover: #245dcc;
-  --primary-soft: #e8f0ff;
+  /* toile & surfaces (sand) */
+  --bg: #f5e6ca;
+  --surface: #fffcf5;
+  --surface-hover: #f7efe0;
+  --surface-tint: rgba(255, 127, 80, 0.08);
+  --border: #e6d9bf;
+  --border-strong: #d9c7a4;
+  --text: #2a2118;
+  --text-muted: #75634d;
 
-  --danger: #d6455d;
-  --danger-soft: #fde8ec;
-  --danger-text: #9f2b3f;
-  --success: #1f9d61;
-  --success-soft: #e3f6ec;
-  --success-text: #146b42;
-  --warning: #d97706;
-  --warning-soft: #fff4e0;
-  --warning-text: #8a5a00;
+  /* chrome (sidebar / topbar) = teal */
+  --chrome: #0f766e;
+  --chrome-strong: #0b5e58;
+  --chrome-border: rgba(255, 255, 255, 0.12);
+  --chrome-hover: rgba(255, 255, 255, 0.1);
+  --on-chrome: #f5e6ca;
+  --on-chrome-muted: #cfc3ad;
+
+  /* coral = action : aplats (primary) + encre pour texte/icônes/traits (primary-ink) */
+  --primary: #ff7f50;
+  --primary-hover: #ff6a33;
+  --primary-ink: #b8430f;
+  --primary-soft: #ffe9de;
+  --on-primary: #2a2118;
+
+  /* statuts */
+  --success: #0f766e;
+  --success-soft: #dff3f0;
+  --success-text: #0b5c56;
+  --warning: #a16207;
+  --warning-soft: #fdf0c8;
+  --warning-text: #7a4a00;
+  --danger: #b3261e;
+  --danger-soft: #fbe3e0;
+  --danger-text: #8c1d17;
+
+  /* palette catégorielle (calendrier) — ordre fixe, jamais cyclée */
+  --series-1: #2a78d6;
+  --series-2: #1baf7a;
+  --series-3: #eda100;
+  --series-4: #e87ba4;
+  --series-5: #008300;
+  --series-6: #4a3aa7;
+  --series-other: #8f8574;
 
   --radius: 12px;
   --radius-sm: 8px;
-  --shadow: 0 6px 20px rgba(20, 30, 50, 0.08);
-  --focus: 0 0 0 3px rgba(47, 111, 237, 0.25);
+  --shadow: 0 6px 20px rgba(42, 33, 24, 0.1);
+  --focus: 0 0 0 3px rgba(255, 127, 80, 0.4);
 }
 
 @mixin dark-tokens {
   color-scheme: dark;
 
-  --bg: #0f1218;
-  --surface: #171b23;
-  --surface-hover: #1f242e;
-  --surface-tint: rgba(110, 156, 255, 0.07);
-  --border: #2a303b;
-  --text: #e6e9ef;
-  --text-muted: #9aa3b2;
-  --on-primary: #0b1220;
+  --bg: #1a1512;
+  --surface: #241d18;
+  --surface-hover: #2e2620;
+  --surface-tint: rgba(255, 154, 118, 0.08);
+  --border: #3b3129;
+  --border-strong: #4d4034;
+  --text: #f3ebdd;
+  --text-muted: #b3a48f;
 
-  --primary: #6e9cff;
-  --primary-hover: #8db1ff;
-  --primary-soft: #1c2740;
+  --chrome: #0d4744;
+  --chrome-strong: #0b3d3a;
+  --chrome-border: rgba(255, 255, 255, 0.1);
+  --chrome-hover: rgba(255, 255, 255, 0.08);
+  --on-chrome: #f3ebdd;
+  --on-chrome-muted: #b9c9c4;
 
-  --danger: #ff6b81;
-  --danger-soft: #3a1c24;
-  --danger-text: #ffb3bf;
-  --success: #3ccf85;
-  --success-soft: #16301f;
-  --success-text: #9fe8c3;
-  --warning: #f5a524;
-  --warning-soft: #3a2a0f;
-  --warning-text: #ffd48a;
+  --primary: #ff9a76;
+  --primary-hover: #ffb08f;
+  --primary-ink: #ff9a76;
+  --primary-soft: #3d2417;
+  --on-primary: #2a1a12;
 
-  --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
-  --focus: 0 0 0 3px rgba(110, 156, 255, 0.35);
+  --success: #34c2b3;
+  --success-soft: #153330;
+  --success-text: #a8ece4;
+  --warning: #f2b23a;
+  --warning-soft: #3a2b10;
+  --warning-text: #ffd58e;
+  --danger: #ff6b61;
+  --danger-soft: #3f1f1c;
+  --danger-text: #ffb4ae;
+
+  --series-1: #3987e5;
+  --series-2: #199e70;
+  --series-3: #c98500;
+  --series-4: #d55181;
+  --series-5: #008300;
+  --series-6: #9085e9;
+  --series-other: #7a6f60;
+
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --focus: 0 0 0 3px rgba(255, 154, 118, 0.4);
 }
 
 :root[data-theme='dark'] {
@@ -121,7 +162,7 @@ h2 {
 }
 
 a {
-  color: var(--primary);
+  color: var(--primary-ink);
 }
 
 /* ===================================================================
@@ -200,7 +241,8 @@ a {
   }
 
   &--ghost {
-    border-color: var(--border);
+    border-color: var(--border-strong);
+    color: var(--primary-ink);
     &:hover:not(:disabled) {
       background: var(--surface-hover);
     }
@@ -274,7 +316,7 @@ textarea {
 
   &:focus {
     outline: none;
-    border-color: var(--primary);
+    border-color: var(--primary-ink);
     box-shadow: var(--focus);
   }
   &.ng-invalid.ng-touched {
@@ -350,7 +392,7 @@ textarea {
   padding: 0.15rem 0.5rem;
   border-radius: 6px;
   background: var(--primary-soft);
-  color: var(--primary);
+  color: var(--primary-ink);
   font-size: 0.8rem;
   font-weight: 500;
 }
@@ -361,14 +403,14 @@ textarea {
 .panel {
   padding: 1.5rem;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius);
 }
 
 .table-wrap {
   overflow-x: auto;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius);
 }
 
@@ -430,7 +472,8 @@ textarea {
   margin: 8vh auto;
   padding: 2rem;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
+  border-top: 4px solid var(--primary);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
 

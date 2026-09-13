@@ -55,7 +55,7 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     &.is-required {
-      border-color: var(--primary);
+      border-color: var(--primary-ink);
       background: var(--surface-tint);
     }
   }

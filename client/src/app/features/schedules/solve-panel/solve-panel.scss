@@ -60,8 +60,8 @@
     }
     &.is-on {
       background: var(--primary-soft);
-      border-color: var(--primary);
-      color: var(--primary);
+      border-color: var(--primary-ink);
+      color: var(--primary-ink);
       font-weight: 600;
     }
   }

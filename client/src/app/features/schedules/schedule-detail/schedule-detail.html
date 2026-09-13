@@ -49,6 +49,38 @@
     </div>
   }
 
+  @if (kinds().length > 0) {
+    <div class="legend">
+      <label class="legend__by">
+        <span>Couleur par</span>
+        <select (change)="setColorKind($any($event.target).value)">
+          @for (k of kinds(); track k) {
+            <option [value]="k" [selected]="k === activeColorKind()">{{ k }}</option>
+          }
+        </select>
+      </label>
+      <div class="legend__chips">
+        @for (e of legend(); track e.id) {
+          <button
+            type="button"
+            class="chip"
+            [class.is-active]="highlightId() === e.id"
+            [class.is-muted]="highlightId() !== null && highlightId() !== e.id"
+            [style.--c]="e.color"
+            (click)="toggleHighlight(e.id)"
+          >
+            <span class="chip__dot"></span>{{ e.name }}
+          </button>
+        }
+        @if (highlightId()) {
+          <button type="button" class="chip chip--reset" (click)="highlightId.set(null)">
+            ✕ Tout afficher
+          </button>
+        }
+      </div>
+    </div>
+  }
+
   <div class="calendar-wrap" [class.has-panel]="panel()">
     <div class="calendar">
       <div
@@ -92,7 +124,9 @@
                 type="button"
                 class="event"
                 [class.has-conflict]="p.assignment.conflicts.length > 0"
+                [class.is-dimmed]="p.dimmed"
                 [class.is-selected]="selectedAssignmentId() === p.assignment.id"
+                [style.--c]="p.color"
                 [style.top.px]="p.top"
                 [style.height.px]="p.height"
                 [style.left.%]="(100 / p.lanes) * p.lane"

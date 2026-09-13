@@ -31,8 +31,9 @@
   flex-direction: column;
   height: 100vh;
   padding: 0.9rem 0.75rem;
-  background: var(--surface);
-  border-right: 1px solid var(--border);
+  background: var(--chrome-strong);
+  color: var(--on-chrome);
+  border-right: 1px solid var(--chrome-border);
   overflow: hidden;
 
   &__top {
@@ -55,7 +56,7 @@
     display: flex;
     gap: 0.25rem;
     padding: 0.25rem 0.1rem 0;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--chrome-border);
     padding-top: 0.6rem;
   }
 
@@ -68,7 +69,7 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  color: var(--text);
+  color: var(--on-chrome);
   font-weight: 700;
   font-size: 1.05rem;
   text-decoration: none;
@@ -83,6 +84,7 @@
     border-radius: 9px;
     background: var(--primary);
     color: var(--on-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   }
   &__name {
     transition: opacity 0.15s;
@@ -103,7 +105,7 @@
     height: 42px;
     padding: 0 0.75rem;
     border-radius: 10px;
-    color: var(--text-muted);
+    color: var(--on-chrome-muted);
     font-weight: 500;
     text-decoration: none;
     white-space: nowrap;
@@ -112,8 +114,8 @@
       color 0.15s;
 
     &:hover {
-      background: var(--surface-hover);
-      color: var(--text);
+      background: var(--chrome-hover);
+      color: var(--on-chrome);
     }
     &:focus-visible {
       outline: none;
@@ -121,8 +123,9 @@
     }
 
     &.is-active {
-      background: var(--primary-soft);
-      color: var(--primary);
+      background: var(--primary);
+      color: var(--on-primary);
+      font-weight: 600;
       .nav__indicator {
         transform: scaleY(1);
       }
@@ -153,7 +156,7 @@
     bottom: 9px;
     width: 3px;
     border-radius: 0 3px 3px 0;
-    background: var(--primary);
+    background: var(--on-chrome);
     transform: scaleY(0);
     transition: transform 0.2s var(--ease);
   }
@@ -200,8 +203,8 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: var(--primary-soft);
-  color: var(--primary);
+  background: var(--primary);
+  color: var(--on-primary);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -236,7 +239,7 @@
   }
   &__org {
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: var(--on-chrome-muted);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -253,13 +256,14 @@
   gap: 0.75rem;
   height: var(--topbar-h);
   padding: 0 1.5rem;
-  background: color-mix(in srgb, var(--surface) 85%, transparent);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
+  background: var(--chrome);
+  color: var(--on-chrome);
+  border-bottom: 1px solid var(--chrome-border);
 
   &__title {
     font-size: 1.05rem;
     font-weight: 600;
+    color: var(--on-chrome);
   }
   &__spacer {
     flex: 1;
@@ -274,7 +278,7 @@
   border: 0;
   border-radius: 9px;
   background: transparent;
-  color: var(--text-muted);
+  color: var(--on-chrome-muted);
   font: inherit;
   font-size: 1.05rem;
   cursor: pointer;
@@ -292,8 +296,8 @@
     stroke-linejoin: round;
   }
   &:hover {
-    background: var(--surface-hover);
-    color: var(--text);
+    background: var(--chrome-hover);
+    color: var(--on-chrome);
   }
   &:focus-visible {
     outline: none;
@@ -313,7 +317,7 @@
     border: 1px solid transparent;
     border-radius: 999px;
     background: transparent;
-    color: var(--text);
+    color: var(--on-chrome);
     font: inherit;
     cursor: pointer;
     transition:
@@ -321,8 +325,8 @@
       border-color 0.15s;
     &:hover,
     &[aria-expanded='true'] {
-      background: var(--surface-hover);
-      border-color: var(--border);
+      background: var(--chrome-hover);
+      border-color: var(--chrome-border);
     }
     &:focus-visible {
       outline: none;
@@ -339,7 +343,7 @@
     fill: none;
     stroke: currentColor;
     stroke-width: 2;
-    color: var(--text-muted);
+    color: var(--on-chrome-muted);
   }
 
   &__panel {
