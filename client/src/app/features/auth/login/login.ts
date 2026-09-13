@@ -39,7 +39,9 @@ export class Login {
         this.router.navigateByUrl(returnUrl);
       },
       error: (err: HttpErrorResponse) => {
-        this.error.set(err.status === 401 ? 'Email ou mot de passe incorrect.' : 'Erreur serveur, réessaie.');
+        this.error.set(
+          err.status === 401 ? 'Email ou mot de passe incorrect.' : 'Erreur serveur, réessaie.',
+        );
         this.loading.set(false);
       },
     });

@@ -43,17 +43,27 @@
         @for (r of filtered(); track r.id) {
           <tr>
             <td class="strong">{{ r.name }}</td>
-            <td><span class="tag">{{ r.kind }}</span></td>
+            <td>
+              <span class="tag">{{ r.kind }}</span>
+            </td>
             <td class="num">{{ r.capacity ?? '—' }}</td>
             <td>
-              <span class="badge" [class.badge--ok]="r.status === 'Active'" [class.badge--off]="r.status === 'Inactive'">
+              <span
+                class="badge"
+                [class.badge--ok]="r.status === 'Active'"
+                [class.badge--off]="r.status === 'Inactive'"
+              >
                 {{ r.status === 'Active' ? 'Active' : 'Inactive' }}
               </span>
             </td>
             @if (isAdmin()) {
               <td class="actions">
-                <a [routerLink]="['/resources', r.id, 'edit']" class="btn btn--sm btn--ghost">Modifier</a>
-                <button type="button" class="btn btn--sm btn--danger" (click)="remove(r)">Supprimer</button>
+                <a [routerLink]="['/resources', r.id, 'edit']" class="btn btn--sm btn--ghost"
+                  >Modifier</a
+                >
+                <button type="button" class="btn btn--sm btn--danger" (click)="remove(r)">
+                  Supprimer
+                </button>
               </td>
             }
           </tr>

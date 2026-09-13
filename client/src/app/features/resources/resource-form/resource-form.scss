@@ -23,3 +23,15 @@
 }
 
 .alert { margin-top: 1.25rem; }
+
+.window-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr auto 1fr auto;
+  gap: .6rem;
+  align-items: center;
+  margin-top: .6rem;
+
+  &__sep { color: var(--text-muted); }
+  &__error { grid-column: 1 / -1; }
+  &.is-invalid input[type="time"] { border-color: var(--danger); }
+}

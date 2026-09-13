@@ -1,7 +1,9 @@
 <header class="page-header">
   <div>
     <h1>{{ isEdit() ? 'Modifier la ressource' : 'Nouvelle ressource' }}</h1>
-    <p class="page-header__subtitle">Une salle, une personne, un équipement… tout ce qui peut être planifié.</p>
+    <p class="page-header__subtitle">
+      Une salle, une personne, un équipement… tout ce qui peut être planifié.
+    </p>
   </div>
   <a routerLink="/resources" class="btn btn--ghost">← Retour</a>
 </header>
@@ -13,7 +15,11 @@
     <div class="form-grid">
       <label class="field">
         <span>Nom</span>
-        <input type="text" formControlName="name" placeholder="A101, Mme Dupont, Vidéoprojecteur 3…" />
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="A101, Mme Dupont, Vidéoprojecteur 3…"
+        />
         @if (form.controls.name.touched && form.controls.name.invalid) {
           <small class="field__error">Requis (200 caractères max).</small>
         }
@@ -21,7 +27,12 @@
 
       <label class="field">
         <span>Type</span>
-        <input type="text" formControlName="kind" list="kind-suggestions" placeholder="room, teacher, equipment…" />
+        <input
+          type="text"
+          formControlName="kind"
+          list="kind-suggestions"
+          placeholder="room, teacher, equipment…"
+        />
         <datalist id="kind-suggestions">
           @for (k of kindSuggestions; track k) {
             <option [value]="k"></option>
@@ -36,7 +47,12 @@
 
       <label class="field">
         <span>Capacité</span>
-        <input type="number" formControlName="capacity" min="1" placeholder="Laisser vide si non applicable" />
+        <input
+          type="number"
+          formControlName="capacity"
+          min="1"
+          placeholder="Laisser vide si non applicable"
+        />
         @if (form.controls.capacity.touched && form.controls.capacity.invalid) {
           <small class="field__error">Doit être ≥ 1.</small>
         }
@@ -56,18 +72,68 @@
     <section class="attributes" formArrayName="attributes">
       <div class="attributes__header">
         <h2>Attributs</h2>
-        <button type="button" class="btn btn--sm btn--ghost" (click)="addAttribute()">+ Ajouter</button>
+        <button type="button" class="btn btn--sm btn--ghost" (click)="addAttribute()">
+          + Ajouter
+        </button>
       </div>
-      <p class="field__hint">Paires clé / valeur libres (bâtiment, étage, équipements…). Les nombres et true/false sont typés automatiquement.</p>
+      <p class="field__hint">
+        Paires clé / valeur libres (bâtiment, étage, équipements…). Les nombres et true/false sont
+        typés automatiquement.
+      </p>
 
       @for (group of attributes.controls; track group; let i = $index) {
         <div class="attributes__row" [formGroupName]="i">
           <input type="text" formControlName="key" placeholder="clé (ex: building)" />
           <input type="text" formControlName="value" placeholder="valeur (ex: B)" />
-          <button type="button" class="btn btn--sm btn--danger" (click)="removeAttribute(i)" aria-label="Supprimer">✕</button>
+          <button
+            type="button"
+            class="btn btn--sm btn--danger"
+            (click)="removeAttribute(i)"
+            aria-label="Supprimer"
+          >
+            ✕
+          </button>
         </div>
       } @empty {
         <p class="attributes__empty">Aucun attribut.</p>
+      }
+    </section>
+
+    <section class="attributes" formArrayName="availability">
+      <div class="attributes__header">
+        <h2>Disponibilités</h2>
+        <button type="button" class="btn btn--sm btn--ghost" (click)="addWindow()">
+          + Ajouter un créneau
+        </button>
+      </div>
+      <p class="field__hint">
+        Aucun créneau = toujours disponible. Sinon, disponible uniquement dans les créneaux listés.
+      </p>
+
+      @for (group of availability.controls; track group; let i = $index) {
+        <div class="window-row" [formGroupName]="i" [class.is-invalid]="windowInvalid(group)">
+          <select formControlName="day">
+            @for (d of days; track d.value) {
+              <option [value]="d.value">{{ d.label }}</option>
+            }
+          </select>
+          <input type="time" formControlName="start" step="300" />
+          <span class="window-row__sep">→</span>
+          <input type="time" formControlName="end" step="300" />
+          <button
+            type="button"
+            class="btn btn--sm btn--danger"
+            (click)="removeWindow(i)"
+            aria-label="Supprimer"
+          >
+            ✕
+          </button>
+          @if (windowInvalid(group)) {
+            <small class="field__error window-row__error">La fin doit être après le début.</small>
+          }
+        </div>
+      } @empty {
+        <p class="attributes__empty">Toujours disponible.</p>
       }
     </section>
 

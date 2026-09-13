@@ -1,0 +1,18 @@
+.priority {
+  display: inline-flex;
+  gap: 3px;
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    &.is-on { background: var(--primary); }
+  }
+
+  &[data-level="5"] .priority__dot.is-on { background: var(--danger); }
+}
+
+.tag { margin-right: .3rem; }
+.tag--pinned { background: var(--success-soft); color: var(--success); }
+.muted { color: var(--text-muted); }

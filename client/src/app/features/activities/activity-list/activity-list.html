@@ -1,0 +1,88 @@
+<header class="page-header">
+  <div>
+    <h1>Activités</h1>
+    <p class="page-header__subtitle">{{ activities().length }} à planifier</p>
+  </div>
+  @if (isAdmin()) {
+    <a routerLink="/activities/new" class="btn btn--primary">+ Nouvelle activité</a>
+  }
+</header>
+
+@if (loading()) {
+  <p class="state">Chargement…</p>
+} @else if (error(); as message) {
+  <p class="alert alert--error">{{ message }}</p>
+} @else {
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th class="num">Durée</th>
+          <th>Priorité</th>
+          <th>Besoins</th>
+          <th>Statut</th>
+          @if (isAdmin()) {
+            <th class="actions"></th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (a of activities(); track a.id) {
+          <tr>
+            <td class="strong">{{ a.name }}</td>
+            <td class="num">{{ formatDuration(a.durationMinutes) }}</td>
+            <td>
+              <span
+                class="priority"
+                [attr.data-level]="a.priority"
+                [title]="'Priorité ' + a.priority"
+              >
+                @for (i of [1, 2, 3, 4, 5]; track i) {
+                  <span class="priority__dot" [class.is-on]="i <= a.priority"></span>
+                }
+              </span>
+            </td>
+            <td>
+              @for (r of a.requirements; track $index) {
+                <span class="tag" [class.tag--pinned]="r.resourceId">{{
+                  describeRequirement(r)
+                }}</span>
+              } @empty {
+                <span class="muted">—</span>
+              }
+            </td>
+            <td>
+              <span
+                class="badge"
+                [class.badge--ok]="a.status === 'Active'"
+                [class.badge--off]="a.status === 'Inactive'"
+              >
+                {{ a.status }}
+              </span>
+            </td>
+            @if (isAdmin()) {
+              <td class="actions">
+                <a [routerLink]="['/activities', a.id, 'edit']" class="btn btn--sm btn--ghost"
+                  >Modifier</a
+                >
+                <button type="button" class="btn btn--sm btn--danger" (click)="remove(a)">
+                  Supprimer
+                </button>
+              </td>
+            }
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6" class="empty">
+              Aucune activité.
+              @if (isAdmin()) {
+                <a routerLink="/activities/new">Créer la première</a>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

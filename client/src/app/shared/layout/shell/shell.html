@@ -5,8 +5,11 @@
   </a>
 
   <nav class="topbar__nav">
-    <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Tableau de bord</a>
+    <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }"
+      >Tableau de bord</a
+    >
     <a routerLink="/resources" routerLinkActive="is-active">Ressources</a>
+    <a routerLink="/activities" routerLinkActive="is-active">Activités</a>
   </nav>
 
   @if (auth.user(); as user) {

@@ -34,6 +34,21 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/resources/resource-form/resource-form').then((m) => m.ResourceForm),
       },
+      {
+        path: 'activities',
+        loadComponent: () =>
+          import('./features/activities/activity-list/activity-list').then((m) => m.ActivityList),
+      },
+      {
+        path: 'activities/new',
+        loadComponent: () =>
+          import('./features/activities/activity-form/activity-form').then((m) => m.ActivityForm),
+      },
+      {
+        path: 'activities/:id/edit',
+        loadComponent: () =>
+          import('./features/activities/activity-form/activity-form').then((m) => m.ActivityForm),
+      },
     ],
   },
   { path: '**', redirectTo: '' },

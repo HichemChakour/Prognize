@@ -1,0 +1,120 @@
+<header class="page-header">
+  <div>
+    <h1>{{ isEdit() ? "Modifier l'activité" : 'Nouvelle activité' }}</h1>
+    <p class="page-header__subtitle">
+      Un cours, une réunion, une intervention… quelque chose à placer dans le planning.
+    </p>
+  </div>
+  <a routerLink="/activities" class="btn btn--ghost">← Retour</a>
+</header>
+
+@if (loading()) {
+  <p class="state">Chargement…</p>
+} @else {
+  <form class="panel" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-grid">
+      <label class="field field--wide">
+        <span>Nom</span>
+        <input type="text" formControlName="name" placeholder="Maths 3A, Conseil de classe…" />
+        @if (form.controls.name.touched && form.controls.name.invalid) {
+          <small class="field__error">Requis (200 caractères max).</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Durée (minutes)</span>
+        <input type="number" formControlName="durationMinutes" min="1" max="1440" step="5" />
+        @if (form.controls.durationMinutes.touched && form.controls.durationMinutes.invalid) {
+          <small class="field__error">Entre 1 et 1440.</small>
+        }
+      </label>
+
+      <label class="field">
+        <span>Priorité</span>
+        <select formControlName="priority">
+          <option [ngValue]="1">1 — Faible</option>
+          <option [ngValue]="2">2</option>
+          <option [ngValue]="3">3 — Normale</option>
+          <option [ngValue]="4">4</option>
+          <option [ngValue]="5">5 — Critique</option>
+        </select>
+      </label>
+
+      @if (isEdit()) {
+        <label class="field">
+          <span>Statut</span>
+          <select formControlName="status">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+        </label>
+      }
+    </div>
+
+    <section class="requirements" formArrayName="requirements">
+      <div class="requirements__header">
+        <h2>Besoins en ressources</h2>
+        <button type="button" class="btn btn--sm btn--ghost" (click)="addRequirement()">
+          + Ajouter un besoin
+        </button>
+      </div>
+      <p class="field__hint">
+        Pour chaque besoin : un type de ressource, et au choix une ressource précise ou une capacité
+        minimale.
+      </p>
+
+      @for (group of requirements.controls; track group; let i = $index) {
+        <div class="requirements__row" [formGroupName]="i">
+          <label class="field">
+            <span>Type</span>
+            <select formControlName="kind">
+              <option value="" disabled>— choisir —</option>
+              @for (k of kinds(); track k) {
+                <option [value]="k">{{ k }}</option>
+              }
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Ressource précise</span>
+            <select formControlName="resourceId">
+              <option [ngValue]="null">N'importe laquelle</option>
+              @for (r of resourcesOfKind(group.controls.kind.value); track r.id) {
+                <option [ngValue]="r.id">{{ r.name }}</option>
+              }
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Capacité min.</span>
+            <input type="number" formControlName="minCapacity" min="1" placeholder="—" />
+          </label>
+
+          <button
+            type="button"
+            class="btn btn--sm btn--danger requirements__remove"
+            (click)="removeRequirement(i)"
+            aria-label="Supprimer"
+          >
+            ✕
+          </button>
+        </div>
+      } @empty {
+        <p class="requirements__empty">
+          Aucun besoin — l'activité pourra être placée sans ressource.
+        </p>
+      }
+    </section>
+
+    @if (error(); as message) {
+      <p class="alert alert--error">{{ message }}</p>
+    }
+
+    <div class="form-actions">
+      <a routerLink="/activities" class="btn btn--ghost">Annuler</a>
+      <button type="submit" class="btn btn--primary" [disabled]="saving()">
+        {{ saving() ? 'Enregistrement…' : isEdit() ? 'Enregistrer' : 'Créer' }}
+      </button>
+    </div>
+  </form>
+}
