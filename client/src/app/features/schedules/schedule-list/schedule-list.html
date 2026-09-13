@@ -1,0 +1,68 @@
+<header class="page-header">
+  <div>
+    <h1>Plannings</h1>
+    <p class="page-header__subtitle">{{ schedules().length }} planning(s)</p>
+  </div>
+</header>
+
+@if (isAdmin()) {
+  <form class="panel create-form" [formGroup]="form" (ngSubmit)="create()">
+    <label class="field">
+      <span>Nouveau planning</span>
+      <input type="text" formControlName="name" placeholder="Semaine 38 — brouillon" />
+    </label>
+    <button type="submit" class="btn btn--primary" [disabled]="creating()">Créer</button>
+  </form>
+}
+
+@if (loading()) {
+  <p class="state">Chargement…</p>
+} @else if (error(); as message) {
+  <p class="alert alert--error">{{ message }}</p>
+} @else {
+  <div class="table-wrap">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Statut</th>
+          <th class="num">Affectations</th>
+          <th>Modifié</th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (s of schedules(); track s.id) {
+          <tr>
+            <td class="strong">
+              <a [routerLink]="['/schedules', s.id]">{{ s.name }}</a>
+            </td>
+            <td>
+              <span
+                class="badge"
+                [class.badge--ok]="s.status === 'Published'"
+                [class.badge--off]="s.status !== 'Published'"
+              >
+                {{ s.status }}
+              </span>
+            </td>
+            <td class="num">{{ s.assignmentCount }}</td>
+            <td class="muted">{{ s.updatedAt.slice(0, 10) }}</td>
+            <td class="actions">
+              <a [routerLink]="['/schedules', s.id]" class="btn btn--sm btn--ghost">Ouvrir</a>
+              @if (isAdmin()) {
+                <button type="button" class="btn btn--sm btn--danger" (click)="remove(s)">
+                  Supprimer
+                </button>
+              }
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="empty">Aucun planning. Crée le premier ci-dessus.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

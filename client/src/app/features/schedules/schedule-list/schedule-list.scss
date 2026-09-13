@@ -1,0 +1,9 @@
+.create-form {
+  display: flex;
+  align-items: flex-end;
+  gap: .75rem;
+  margin-bottom: 1.5rem;
+
+  .field { flex: 1; }
+}
+.muted { color: var(--text-muted); }

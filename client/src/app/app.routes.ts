@@ -49,6 +49,18 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/activities/activity-form/activity-form').then((m) => m.ActivityForm),
       },
+      {
+        path: 'schedules',
+        loadComponent: () =>
+          import('./features/schedules/schedule-list/schedule-list').then((m) => m.ScheduleList),
+      },
+      {
+        path: 'schedules/:id',
+        loadComponent: () =>
+          import('./features/schedules/schedule-detail/schedule-detail').then(
+            (m) => m.ScheduleDetail,
+          ),
+      },
     ],
   },
   { path: '**', redirectTo: '' },

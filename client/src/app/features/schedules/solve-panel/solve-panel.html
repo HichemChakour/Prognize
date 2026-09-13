@@ -1,0 +1,71 @@
+<aside class="panel side-panel">
+  <header class="side-panel__header">
+    <h2>Générer le planning</h2>
+    <button
+      type="button"
+      class="btn btn--sm btn--ghost"
+      (click)="closed.emit()"
+      aria-label="Fermer"
+    >
+      ✕
+    </button>
+  </header>
+
+  <p class="field__hint">
+    Le solveur place toutes les activités actives sur la semaine affichée, en respectant les
+    besoins, les disponibilités et les capacités — sans aucun conflit. Les prioritaires passent en
+    premier.
+  </p>
+
+  <form [formGroup]="form" (ngSubmit)="run()">
+    <fieldset class="days">
+      <legend>Jours ouverts</legend>
+      <div class="days__grid">
+        @for (d of days; track d.value) {
+          <label class="days__choice" [class.is-on]="isDaySelected(d.value)">
+            <input
+              type="checkbox"
+              [checked]="isDaySelected(d.value)"
+              (change)="toggleDay(d.value)"
+            />
+            {{ d.label.slice(0, 3) }}
+          </label>
+        }
+      </div>
+      @if (selectedDays().size === 0) {
+        <small class="field__error">Choisis au moins un jour.</small>
+      }
+    </fieldset>
+
+    <div class="side-panel__row">
+      <label class="field">
+        <span>Ouverture</span>
+        <input type="time" formControlName="dayStart" step="900" />
+      </label>
+      <label class="field">
+        <span>Fermeture</span>
+        <input type="time" formControlName="dayEnd" step="900" />
+      </label>
+      <label class="field">
+        <span>Temps max (s)</span>
+        <input type="number" formControlName="timeLimitSeconds" min="1" max="120" />
+      </label>
+    </div>
+
+    @if (error(); as message) {
+      <p class="alert alert--error">{{ message }}</p>
+    }
+
+    <div class="side-panel__actions">
+      <span class="spacer"></span>
+      <button type="button" class="btn btn--ghost" (click)="closed.emit()">Annuler</button>
+      <button
+        type="submit"
+        class="btn btn--primary"
+        [disabled]="running() || selectedDays().size === 0"
+      >
+        {{ running() ? 'Calcul en cours…' : '⚡ Générer' }}
+      </button>
+    </div>
+  </form>
+</aside>

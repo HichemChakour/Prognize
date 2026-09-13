@@ -1,0 +1,105 @@
+<aside class="panel side-panel">
+  <header class="side-panel__header">
+    <h2>{{ isEdit() ? "Modifier l'affectation" : 'Placer une activité' }}</h2>
+    <button
+      type="button"
+      class="btn btn--sm btn--ghost"
+      (click)="closed.emit()"
+      aria-label="Fermer"
+    >
+      ✕
+    </button>
+  </header>
+
+  @if (conflicts().length > 0) {
+    <div class="alert alert--error side-panel__conflicts">
+      <strong>{{ conflicts().length }} conflit(s)</strong>
+      <ul>
+        @for (c of conflicts(); track $index) {
+          <li>{{ c.message }}</li>
+        }
+      </ul>
+    </div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label class="field">
+      <span>Activité</span>
+      <select formControlName="activityId">
+        <option value="" disabled>— choisir —</option>
+        @for (a of activities(); track a.id) {
+          <option [value]="a.id">{{ a.name }} · {{ a.durationMinutes }} min</option>
+        }
+      </select>
+      @if (form.controls.activityId.touched && form.controls.activityId.invalid) {
+        <small class="field__error">Requis.</small>
+      }
+    </label>
+
+    <div class="side-panel__row">
+      <label class="field">
+        <span>Date</span>
+        <input type="date" formControlName="date" />
+      </label>
+      <label class="field">
+        <span>Début</span>
+        <input type="time" formControlName="start" step="300" />
+      </label>
+      <label class="field">
+        <span>Fin</span>
+        <input type="time" formControlName="end" step="300" />
+      </label>
+    </div>
+
+    <fieldset class="side-panel__resources">
+      <legend>Ressources</legend>
+      @if (activity(); as act) {
+        @if (act.requirements.length > 0) {
+          <p class="field__hint">
+            Besoins :
+            @for (r of act.requirements; track $index) {
+              <span class="tag">{{ r.kind }}{{ r.minCapacity ? ' ≥ ' + r.minCapacity : '' }}</span>
+            }
+          </p>
+        }
+      }
+
+      @for (group of resourcesByKind(); track group[0]) {
+        <div class="side-panel__group" [class.is-required]="requiredKinds().has(group[0])">
+          <span class="side-panel__kind">{{ group[0] }}</span>
+          @for (r of group[1]; track r.id) {
+            <label
+              class="side-panel__choice"
+              [class.is-pinned]="pinnedIds().has(r.id)"
+              [class.has-conflict]="conflictsFor(r.id).length > 0"
+            >
+              <input type="checkbox" [checked]="isSelected(r.id)" (change)="toggle(r.id)" />
+              <span>{{ r.name }}</span>
+              @if (r.capacity) {
+                <span class="side-panel__cap">{{ r.capacity }}</span>
+              }
+              @if (pinnedIds().has(r.id)) {
+                <span class="side-panel__pin" title="Imposée par l'activité">★</span>
+              }
+            </label>
+          }
+        </div>
+      }
+    </fieldset>
+
+    @if (error(); as message) {
+      <p class="alert alert--error">{{ message }}</p>
+    }
+
+    <div class="side-panel__actions">
+      @if (isEdit()) {
+        <button type="button" class="btn btn--danger btn--sm" (click)="remove()">Supprimer</button>
+      }
+      <span class="spacer"></span>
+      <button type="button" class="btn btn--ghost" (click)="closed.emit()">Annuler</button>
+      <button type="submit" class="btn btn--primary" [disabled]="saving()">
+        {{ saving() ? 'Enregistrement…' : isEdit() ? 'Enregistrer' : 'Placer' }}
+      </button>
+    </div>
+  </form>
+</aside>

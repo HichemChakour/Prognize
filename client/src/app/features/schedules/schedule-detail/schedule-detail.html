@@ -1,0 +1,144 @@
+@if (loading()) {
+  <p class="state">Chargement…</p>
+} @else if (error(); as message) {
+  <p class="alert alert--error">{{ message }}</p>
+} @else if (schedule(); as s) {
+  <header class="page-header">
+    <div>
+      <p class="breadcrumb"><a routerLink="/schedules">Plannings</a> / {{ s.name }}</p>
+      <h1>{{ s.name }}</h1>
+      <p class="page-header__subtitle">
+        {{ s.assignments.length }} affectation(s)
+        @if (conflictCount() > 0) {
+          · <span class="conflict-count">{{ conflictCount() }} conflit(s)</span>
+        } @else if (s.assignments.length > 0) {
+          · <span class="ok-count">aucun conflit</span>
+        }
+      </p>
+    </div>
+    <div class="week-nav">
+      @if (isAdmin()) {
+        <button type="button" class="btn btn--primary btn--sm solve-btn" (click)="openSolve()">
+          ⚡ Générer le planning
+        </button>
+      }
+      <button type="button" class="btn btn--ghost btn--sm" (click)="shiftWeek(-1)">‹</button>
+      <button type="button" class="btn btn--ghost btn--sm" (click)="goToday()">Aujourd'hui</button>
+      <button type="button" class="btn btn--ghost btn--sm" (click)="shiftWeek(1)">›</button>
+      <span class="week-nav__label">{{ weekLabel() }}</span>
+    </div>
+  </header>
+
+  @if (s.metrics; as m) {
+    <div class="solve-summary" [class.is-partial]="m.unplacedCount > 0">
+      <span class="solve-summary__score">Score {{ s.score }}</span>
+      <span>{{
+        m.outcome === 'Optimal'
+          ? 'Solution optimale'
+          : m.outcome === 'Feasible'
+            ? 'Solution trouvée (limite de temps atteinte)'
+            : 'Aucune solution'
+      }}</span>
+      <span>{{ m.placedCount }}/{{ m.activityCount }} activités placées</span>
+      <span class="solve-summary__time">{{ m.wallTimeSeconds }} s</span>
+      @if (unplacedActivities().length > 0) {
+        <span class="solve-summary__unplaced"
+          >Non placées : {{ unplacedActivities().join(', ') }}</span
+        >
+      }
+    </div>
+  }
+
+  <div class="calendar-wrap" [class.has-panel]="panel()">
+    <div class="calendar">
+      <div class="calendar__header">
+        <div class="calendar__corner"></div>
+        @for (day of days(); track day.getTime()) {
+          <div class="calendar__day-head" [class.is-today]="isToday(day)">
+            <span class="calendar__day-name">{{
+              day.toLocaleDateString('fr-FR', { weekday: 'short' })
+            }}</span>
+            <span class="calendar__day-num">{{ day.getDate() }}</span>
+          </div>
+        }
+      </div>
+
+      <div class="calendar__body" [style.height.px]="dayHeight">
+        <div class="calendar__hours">
+          @for (h of hours; track h) {
+            <div class="calendar__hour" [style.height.px]="hourHeight">{{ h }}:00</div>
+          }
+        </div>
+
+        @for (day of days(); track day.getTime(); let d = $index) {
+          <div
+            class="calendar__column"
+            [class.is-today]="isToday(day)"
+            [class.is-editable]="isAdmin()"
+            (click)="openCreate(day, $event)"
+          >
+            @for (h of hours; track h) {
+              <div class="calendar__line" [style.height.px]="hourHeight"></div>
+            }
+            @for (p of placedByDay()[d]; track p.assignment.id) {
+              <button
+                type="button"
+                class="event"
+                [class.has-conflict]="p.assignment.conflicts.length > 0"
+                [class.is-selected]="selectedAssignmentId() === p.assignment.id"
+                [style.top.px]="p.top"
+                [style.height.px]="p.height"
+                [style.left.%]="(100 / p.lanes) * p.lane"
+                [style.width.%]="100 / p.lanes"
+                [title]="
+                  p.assignment.conflicts.length
+                    ? p.assignment.conflicts[0].message
+                    : p.assignment.activityName
+                "
+                (click)="openEdit(p.assignment, $event)"
+              >
+                <span class="event__title">{{ p.assignment.activityName }}</span>
+                <span class="event__time"
+                  >{{ p.assignment.start.slice(11, 16) }}–{{ p.assignment.end.slice(11, 16) }}</span
+                >
+                <span class="event__resources">
+                  @for (r of p.assignment.resources; track r.id) {
+                    <span>{{ r.name }}</span>
+                  }
+                </span>
+                @if (p.assignment.conflicts.length > 0) {
+                  <span class="event__badge">{{ p.assignment.conflicts.length }}</span>
+                }
+              </button>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    @if (solvePanelOpen()) {
+      <app-solve-panel
+        [scheduleId]="s.id"
+        [weekStart]="weekStart()"
+        [hasAssignments]="s.assignments.length > 0"
+        (solved)="onSolved($event)"
+        (closed)="closePanel()"
+      />
+    }
+
+    @if (assignmentPanel(); as state) {
+      <app-assignment-panel
+        [scheduleId]="s.id"
+        [state]="state"
+        [activities]="activities()"
+        [resources]="resources()"
+        (saved)="onSaved()"
+        (closed)="closePanel()"
+      />
+    }
+  </div>
+
+  @if (isAdmin() && !panel()) {
+    <p class="hint">Clique sur un créneau du calendrier pour placer une activité.</p>
+  }
+}
