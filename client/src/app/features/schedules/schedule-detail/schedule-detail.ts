@@ -4,6 +4,7 @@ import { forkJoin } from 'rxjs';
 import { Activities } from '../../../core/activities/activities';
 import { Activity } from '../../../core/activities/activity.models';
 import { Auth } from '../../../core/auth/auth';
+import { Viewport } from '../../../core/layout/viewport';
 import { Resource } from '../../../core/resources/resource.models';
 import { Resources } from '../../../core/resources/resources';
 import {
@@ -44,6 +45,7 @@ export class ScheduleDetail implements OnInit {
   private readonly activitiesApi = inject(Activities);
   private readonly resourcesApi = inject(Resources);
   private readonly auth = inject(Auth);
+  private readonly viewport = inject(Viewport);
 
   readonly id = input.required<string>();
 
@@ -53,6 +55,8 @@ export class ScheduleDetail implements OnInit {
   readonly loading = signal(true);
   readonly error = signal<string | null>(null);
   readonly weekStart = signal(startOfWeek(new Date()));
+  readonly dayIndex = signal((new Date().getDay() + 6) % 7);
+  readonly isMobile = this.viewport.isMobile;
   readonly panel = signal<PanelState | { mode: 'solve' } | null>(null);
 
   readonly isAdmin = computed(() => this.auth.user()?.role === 'Admin');
@@ -65,7 +69,16 @@ export class ScheduleDetail implements OnInit {
 
   readonly days = computed(() => Array.from({ length: 7 }, (_, i) => addDays(this.weekStart(), i)));
 
+  /** Semaine complète sur desktop, un seul jour sur mobile. */
+  readonly visibleDays = computed(() =>
+    this.isMobile() ? [this.days()[this.dayIndex()]] : this.days(),
+  );
+
   readonly weekLabel = computed(() => {
+    if (this.isMobile()) {
+      const d = this.days()[this.dayIndex()];
+      return d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' });
+    }
     const from = this.weekStart();
     const to = addDays(from, 6);
     const fmt = (d: Date) => d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
@@ -74,9 +87,9 @@ export class ScheduleDetail implements OnInit {
 
   readonly placedByDay = computed<PlacedAssignment[][]>(() => {
     const schedule = this.schedule();
-    if (!schedule) return this.days().map(() => []);
+    if (!schedule) return this.visibleDays().map(() => []);
 
-    return this.days().map((day) => {
+    return this.visibleDays().map((day) => {
       const dayKey = toDateInput(day);
       const ofDay = schedule.assignments
         .filter((a) => a.start.slice(0, 10) === dayKey)
@@ -131,12 +144,28 @@ export class ScheduleDetail implements OnInit {
     this.api.getById(this.id()).subscribe({ next: (s) => this.schedule.set(s) });
   }
 
-  shiftWeek(weeks: number): void {
-    this.weekStart.set(addDays(this.weekStart(), weeks * 7));
+  /** Sur mobile on avance d'un jour, sur desktop d'une semaine. */
+  shift(direction: 1 | -1): void {
+    if (!this.isMobile()) {
+      this.weekStart.set(addDays(this.weekStart(), direction * 7));
+      return;
+    }
+    const next = this.dayIndex() + direction;
+    if (next < 0) {
+      this.weekStart.set(addDays(this.weekStart(), -7));
+      this.dayIndex.set(6);
+    } else if (next > 6) {
+      this.weekStart.set(addDays(this.weekStart(), 7));
+      this.dayIndex.set(0);
+    } else {
+      this.dayIndex.set(next);
+    }
   }
 
   goToday(): void {
-    this.weekStart.set(startOfWeek(new Date()));
+    const today = new Date();
+    this.weekStart.set(startOfWeek(today));
+    this.dayIndex.set((today.getDay() + 6) % 7);
   }
 
   isToday(day: Date): boolean {

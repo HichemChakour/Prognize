@@ -1,27 +1,50 @@
 <header class="topbar">
   <a routerLink="/" class="topbar__brand">
     <span class="topbar__logo">P</span>
-    Prognize
+    <span class="topbar__brand-name">Prognize</span>
   </a>
 
   <nav class="topbar__nav">
-    <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }"
-      >Tableau de bord</a
-    >
-    <a routerLink="/resources" routerLinkActive="is-active">Ressources</a>
-    <a routerLink="/activities" routerLinkActive="is-active">Activités</a>
-    <a routerLink="/schedules" routerLinkActive="is-active">Plannings</a>
+    <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">
+      <span class="nav-icon">▦</span><span>Tableau de bord</span>
+    </a>
+    <a routerLink="/resources" routerLinkActive="is-active">
+      <span class="nav-icon">◫</span><span>Ressources</span>
+    </a>
+    <a routerLink="/activities" routerLinkActive="is-active">
+      <span class="nav-icon">◷</span><span>Activités</span>
+    </a>
+    <a routerLink="/schedules" routerLinkActive="is-active">
+      <span class="nav-icon">▤</span><span>Plannings</span>
+    </a>
   </nav>
 
-  @if (auth.user(); as user) {
-    <div class="topbar__user">
+  <div class="topbar__user">
+    <button
+      type="button"
+      class="btn btn--ghost btn--icon"
+      (click)="theme.cycle()"
+      [title]="theme.label()"
+      [attr.aria-label]="theme.label()"
+    >
+      {{ theme.icon() }}
+    </button>
+    @if (auth.user(); as user) {
       <div class="topbar__identity">
         <span class="topbar__name">{{ user.displayName }}</span>
         <span class="topbar__org">{{ user.organizationName }} · {{ user.role }}</span>
       </div>
-      <button type="button" class="btn btn--ghost" (click)="auth.logout()">Déconnexion</button>
-    </div>
-  }
+      <button
+        type="button"
+        class="btn btn--ghost btn--sm topbar__logout"
+        (click)="auth.logout()"
+        title="Déconnexion"
+      >
+        <span class="topbar__logout-text">Déconnexion</span
+        ><span class="topbar__logout-icon">⎋</span>
+      </button>
+    }
+  </div>
 </header>
 
 <main class="page">

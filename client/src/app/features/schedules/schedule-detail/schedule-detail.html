@@ -22,9 +22,9 @@
           ⚡ Générer le planning
         </button>
       }
-      <button type="button" class="btn btn--ghost btn--sm" (click)="shiftWeek(-1)">‹</button>
+      <button type="button" class="btn btn--ghost btn--sm" (click)="shift(-1)">‹</button>
       <button type="button" class="btn btn--ghost btn--sm" (click)="goToday()">Aujourd'hui</button>
-      <button type="button" class="btn btn--ghost btn--sm" (click)="shiftWeek(1)">›</button>
+      <button type="button" class="btn btn--ghost btn--sm" (click)="shift(1)">›</button>
       <span class="week-nav__label">{{ weekLabel() }}</span>
     </div>
   </header>
@@ -51,9 +51,12 @@
 
   <div class="calendar-wrap" [class.has-panel]="panel()">
     <div class="calendar">
-      <div class="calendar__header">
+      <div
+        class="calendar__header"
+        [style.grid-template-columns]="'56px repeat(' + visibleDays().length + ', 1fr)'"
+      >
         <div class="calendar__corner"></div>
-        @for (day of days(); track day.getTime()) {
+        @for (day of visibleDays(); track day.getTime()) {
           <div class="calendar__day-head" [class.is-today]="isToday(day)">
             <span class="calendar__day-name">{{
               day.toLocaleDateString('fr-FR', { weekday: 'short' })
@@ -63,7 +66,11 @@
         }
       </div>
 
-      <div class="calendar__body" [style.height.px]="dayHeight">
+      <div
+        class="calendar__body"
+        [style.height.px]="dayHeight"
+        [style.grid-template-columns]="'56px repeat(' + visibleDays().length + ', 1fr)'"
+      >
         <div class="calendar__hours">
           @for (h of hours; track h) {
             <div class="calendar__hour" [style.height.px]="hourHeight">{{ h }}:00</div>
