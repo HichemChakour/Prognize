@@ -46,6 +46,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
+  box-shadow: var(--shadow);
 
   &__header,
   &__body {
@@ -171,6 +172,8 @@
     color: var(--text-muted);
   }
   &__badge {
+    animation: pop-in var(--dur) var(--ease-spring) both;
+    animation-delay: 0.3s;
     position: absolute;
     top: 4px;
     right: 4px;
@@ -198,6 +201,8 @@
 }
 
 .solve-summary {
+  animation: pop-in var(--dur-slow) var(--ease-spring) both;
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -304,9 +309,16 @@
   &:hover {
     border-color: var(--c);
   }
+  &:hover {
+    transform: translateY(-1px) scale(1.04);
+    box-shadow: var(--shadow-sm);
+  }
   &.is-active {
     border-color: var(--c);
     background: color-mix(in srgb, var(--c) 14%, var(--surface));
+    box-shadow:
+      0 0 0 1px var(--c),
+      0 6px 16px -6px var(--c);
     font-weight: 600;
   }
   &.is-muted {

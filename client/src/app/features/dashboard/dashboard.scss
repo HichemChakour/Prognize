@@ -6,6 +6,12 @@
 }
 
 .stat {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  animation: fade-up var(--dur-slow) var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+  box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -20,9 +26,23 @@
     border-color 0.15s,
     box-shadow 0.15s;
 
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--sheen);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: -1;
+  }
+
   &:hover {
     border-color: var(--primary-ink);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg), var(--glow-soft);
+    transform: translateY(-4px) scale(1.02);
+  }
+  &:active {
+    transform: translateY(-1px) scale(0.99);
   }
 
   &__label {
@@ -46,7 +66,23 @@
   }
 
   &--hero {
-    border-color: var(--primary);
+    border-color: transparent;
+    background:
+      linear-gradient(var(--surface), var(--surface)) padding-box,
+      conic-gradient(
+          from var(--angle),
+          var(--primary),
+          var(--chrome),
+          var(--warning),
+          var(--primary)
+        )
+        border-box;
+    border: 2px solid transparent;
+    border-top-width: 2px;
+    animation:
+      fade-up var(--dur-slow) var(--ease-out) both,
+      spin-angle 6s linear infinite;
+    box-shadow: var(--shadow), var(--glow-soft);
   }
   &--hero .stat__value {
     font-size: 2.6rem;
@@ -124,8 +160,10 @@
     display: block;
     height: 100%;
     border-radius: 4px;
-    background: var(--primary);
-    transition: width 0.3s;
+    background: linear-gradient(90deg, var(--primary-ink), var(--primary));
+    transform-origin: left;
+    animation: grow-x var(--dur-slow) var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 80ms + 200ms);
   }
   &__value {
     font-size: 0.85rem;
@@ -150,9 +188,18 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.6rem 0;
+    padding: 0.6rem 0.4rem;
+    margin: 0 -0.4rem;
+    border-radius: var(--radius-sm);
     color: var(--text);
     text-decoration: none;
+    transition:
+      background var(--dur-fast),
+      transform var(--dur-fast) var(--ease-out);
+    &:hover {
+      background: var(--surface-hover);
+      transform: translateX(4px);
+    }
     &:hover .list__title {
       color: var(--primary-ink);
     }
@@ -205,6 +252,7 @@
     &.is-done .steps__num {
       background: var(--success);
       color: var(--on-primary);
+      animation: pop-in var(--dur) var(--ease-spring) both;
     }
   }
   &__num {
@@ -257,5 +305,182 @@
   }
   .bars__row {
     grid-template-columns: 70px 1fr 28px;
+  }
+}
+
+/* ---------- panneaux de visualisation ---------- */
+.viz {
+  margin-bottom: 1rem;
+}
+.panel__sub {
+  margin: 0.15rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* carte de chaleur : jours × heures, mono-teinte */
+.heat {
+  display: grid;
+  grid-template-columns: 40px repeat(13, 1fr);
+  gap: 3px;
+  align-items: center;
+
+  &__corner {
+  }
+  &__hour {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+  &__day {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  &__cell {
+    height: 22px;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--primary-ink) calc(var(--v) * 100%), var(--surface-hover));
+    transition:
+      transform var(--dur-fast) var(--ease-spring),
+      box-shadow var(--dur-fast);
+    animation: pop-in var(--dur) var(--ease-out) both;
+    animation-delay: calc(var(--v) * 200ms + 120ms);
+
+    &.is-empty {
+      background: var(--surface-hover);
+    }
+    &:hover {
+      transform: scale(1.25);
+      box-shadow: var(--shadow-sm);
+      z-index: 1;
+    }
+  }
+
+  &__legend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+  &__scale {
+    width: 120px;
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--surface-hover), var(--primary-ink));
+  }
+}
+
+/* jauges d'occupation */
+.meters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &__row {
+    display: grid;
+    grid-template-columns: 120px 1fr 44px;
+    align-items: center;
+    gap: 0.6rem;
+    animation: fade-up var(--dur) var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 50ms);
+  }
+  &__label {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.15;
+  }
+  &__name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__kind {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+  &__track {
+    display: block;
+    height: 10px;
+    border-radius: 4px;
+    background: var(--primary-soft);
+    overflow: hidden;
+    &--lg {
+      height: 14px;
+    }
+  }
+  &__fill {
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+    background: var(--primary);
+    transform-origin: left;
+    animation: grow-x var(--dur-slow) var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 60ms + 200ms);
+    &.is-high {
+      background: var(--primary-ink);
+    }
+  }
+  &__value {
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    color: var(--text-muted);
+  }
+}
+
+.prio {
+  display: inline-block;
+  min-width: 2rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 6px;
+  background: var(--surface-hover);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  &[data-level='5'] {
+    background: var(--primary-soft);
+    color: var(--primary-ink);
+  }
+}
+
+.placed {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    strong {
+      color: var(--text);
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .heat {
+    grid-template-columns: 32px repeat(13, 1fr);
+    gap: 2px;
+  }
+  .heat__cell {
+    height: 16px;
+  }
+  .heat__hour {
+    font-size: 0.55rem;
+  }
+  .meters__row {
+    grid-template-columns: 90px 1fr 40px;
   }
 }

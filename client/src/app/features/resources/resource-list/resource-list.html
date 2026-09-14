@@ -41,7 +41,7 @@
       </thead>
       <tbody>
         @for (r of filtered(); track r.id) {
-          <tr>
+          <tr [style.--i]="$index">
             <td class="strong">{{ r.name }}</td>
             <td>
               <span class="tag">{{ r.kind }}</span>

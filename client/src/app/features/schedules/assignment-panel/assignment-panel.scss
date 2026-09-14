@@ -1,4 +1,6 @@
 .side-panel {
+  animation: pop-in var(--dur-slow) var(--ease-spring) both;
+  box-shadow: var(--shadow);
   position: sticky;
   top: 76px;
   display: flex;

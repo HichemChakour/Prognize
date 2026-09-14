@@ -33,7 +33,7 @@
       </thead>
       <tbody>
         @for (s of schedules(); track s.id) {
-          <tr>
+          <tr [style.--i]="$index">
             <td class="strong">
               <a [routerLink]="['/schedules', s.id]">{{ s.name }}</a>
             </td>

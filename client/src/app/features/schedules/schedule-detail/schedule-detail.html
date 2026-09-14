@@ -123,6 +123,7 @@
               <button
                 type="button"
                 class="event"
+                [style.--i]="$index"
                 [class.has-conflict]="p.assignment.conflicts.length > 0"
                 [class.is-dimmed]="p.dimmed"
                 [class.is-selected]="selectedAssignmentId() === p.assignment.id"

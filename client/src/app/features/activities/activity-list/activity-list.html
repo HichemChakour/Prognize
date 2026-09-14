@@ -29,7 +29,7 @@
       </thead>
       <tbody>
         @for (a of activities(); track a.id) {
-          <tr>
+          <tr [style.--i]="$index">
             <td class="strong">{{ a.name }}</td>
             <td class="num">{{ formatDuration(a.durationMinutes) }}</td>
             <td>

@@ -15,19 +15,19 @@
 } @else {
   <!-- KPI row -->
   <section class="kpis" aria-label="Chiffres clés">
-    <a routerLink="/resources" class="stat">
+    <a routerLink="/resources" class="stat" [style.--i]="0">
       <span class="stat__label">Ressources actives</span>
-      <span class="stat__value">{{ activeResources() }}</span>
+      <span class="stat__value" [appCountUp]="activeResources()"></span>
       <span class="stat__meta">{{ resources().length - activeResources() }} inactive(s)</span>
     </a>
-    <a routerLink="/activities" class="stat">
+    <a routerLink="/activities" class="stat" [style.--i]="1">
       <span class="stat__label">Activités à planifier</span>
-      <span class="stat__value">{{ activeActivities() }}</span>
+      <span class="stat__value" [appCountUp]="activeActivities()"></span>
       <span class="stat__meta">{{ totalHoursLabel() }} au total</span>
     </a>
-    <a routerLink="/schedules" class="stat">
+    <a routerLink="/schedules" class="stat" [style.--i]="2">
       <span class="stat__label">Plannings</span>
-      <span class="stat__value">{{ schedules().length }}</span>
+      <span class="stat__value" [appCountUp]="schedules().length"></span>
       <span class="stat__meta">{{
         schedules().length > 0
           ? 'dernier ' + relativeDate(latestSchedule()!.updatedAt)
@@ -38,6 +38,7 @@
       <a
         [routerLink]="['/schedules', s.id]"
         class="stat stat--hero"
+        [style.--i]="3"
         [class.stat--good]="s.score === 100"
         [class.stat--warn]="s.score !== null && s.score < 100"
       >
@@ -55,9 +56,130 @@
     }
   </section>
 
+  @if (latestDetail(); as detail) {
+    <section class="panel viz" [style.--i]="3">
+      <div class="panel__head">
+        <div>
+          <h2>Occupation de la semaine</h2>
+          <p class="panel__sub">{{ detail.name }} · activités simultanées par heure</p>
+        </div>
+        <a [routerLink]="['/schedules', detail.id]" class="panel__link">Ouvrir</a>
+      </div>
+
+      @if (detail.assignments.length === 0) {
+        <p class="empty-hint">Ce planning est vide.</p>
+      } @else {
+        <div class="heat">
+          <div class="heat__corner"></div>
+          @for (h of heatHours; track h) {
+            <div class="heat__hour">{{ h }}h</div>
+          }
+          @for (row of heatmap(); track $index; let d = $index) {
+            <div class="heat__day">{{ dayLabels[d] }}</div>
+            @for (cell of row; track cell.hour) {
+              <div
+                class="heat__cell"
+                [style.--v]="cell.ratio"
+                [class.is-empty]="cell.count === 0"
+                [title]="
+                  dayLabels[cell.day] +
+                  ' ' +
+                  cell.hour +
+                  'h–' +
+                  (cell.hour + 1) +
+                  'h : ' +
+                  cell.count +
+                  ' activité(s)'
+                "
+              ></div>
+            }
+          }
+        </div>
+        <div class="heat__legend">
+          <span>0</span>
+          <span class="heat__scale"></span>
+          <span>{{ heatMax() }} simultanée(s)</span>
+        </div>
+      }
+    </section>
+  }
+
   <div class="grid">
+    @if (occupancy().length > 0) {
+      <section class="panel" [style.--i]="4">
+        <div class="panel__head">
+          <div>
+            <h2>Taux d'occupation</h2>
+            <p class="panel__sub">réservé / disponible, dernier planning</p>
+          </div>
+        </div>
+        <ul class="meters">
+          @for (o of occupancy(); track o.id) {
+            <li
+              class="meters__row"
+              [style.--i]="$index"
+              [title]="formatMinutes(o.bookedMinutes) + ' sur ' + formatMinutes(o.capacityMinutes)"
+            >
+              <span class="meters__label">
+                <span class="meters__name">{{ o.name }}</span>
+                <span class="meters__kind">{{ o.kind }}</span>
+              </span>
+              <span class="meters__track">
+                <span
+                  class="meters__fill"
+                  [style.width.%]="o.ratio * 100"
+                  [class.is-high]="o.ratio >= 0.85"
+                ></span>
+              </span>
+              <span class="meters__value">{{ (o.ratio * 100).toFixed(0) }}%</span>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+
+    @if (activeActivities() > 0) {
+      <section class="panel" [style.--i]="5">
+        <div class="panel__head">
+          <div>
+            <h2>Activités par priorité</h2>
+            <p class="panel__sub">{{ activeActivities() }} actives</p>
+          </div>
+        </div>
+        <ul class="bars">
+          @for (p of byPriority(); track p.priority) {
+            <li class="bars__row" [style.--i]="$index">
+              <span class="bars__label"
+                ><span class="prio" [attr.data-level]="p.priority">P{{ p.priority }}</span></span
+              >
+              <span class="bars__track"
+                ><span class="bars__fill" [style.width.%]="p.ratio * 100"></span
+              ></span>
+              <span class="bars__value">{{ p.count }}</span>
+            </li>
+          }
+        </ul>
+
+        @if (placedRatio(); as pr) {
+          <div class="placed">
+            <div class="placed__head">
+              <span>Placées dans le dernier planning</span>
+              <strong>{{ pr.placed }} / {{ pr.total }}</strong>
+            </div>
+            <span class="meters__track meters__track--lg">
+              <span
+                class="meters__fill"
+                [style.width.%]="pr.ratio * 100"
+                [class.is-high]="pr.ratio === 1"
+              ></span>
+            </span>
+          </div>
+        }
+      </section>
+    }
+
     <!-- Ressources par type -->
-    <section class="panel">
+    <section class="panel" [style.--i]="6">
       <div class="panel__head">
         <h2>Ressources par type</h2>
         <a routerLink="/resources" class="panel__link">Voir tout</a>
@@ -69,7 +191,7 @@
       } @else {
         <ul class="bars">
           @for (k of resourcesByKind(); track k.kind) {
-            <li class="bars__row">
+            <li class="bars__row" [style.--i]="$index">
               <span class="bars__label">{{ k.kind }}</span>
               <span class="bars__track"
                 ><span class="bars__fill" [style.width.%]="k.ratio * 100"></span
@@ -82,7 +204,7 @@
     </section>
 
     <!-- Plannings récents -->
-    <section class="panel">
+    <section class="panel" [style.--i]="7">
       <div class="panel__head">
         <h2>Plannings récents</h2>
         <a routerLink="/schedules" class="panel__link">Voir tout</a>
@@ -117,7 +239,7 @@
     </section>
 
     <!-- Pour bien démarrer -->
-    <section class="panel steps">
+    <section class="panel steps" [style.--i]="8">
       <div class="panel__head">
         <h2>{{ isEmpty() ? 'Pour bien démarrer' : 'Votre progression' }}</h2>
       </div>
