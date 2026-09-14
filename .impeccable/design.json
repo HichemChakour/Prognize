@@ -1,0 +1,685 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-14T09:54:31+00:00",
+  "title": "Design System: Prognize",
+  "extensions": {
+    "colorMeta": {
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Toile gris Apple",
+        "canonical": "#f5f5f7",
+        "dark": "#000000",
+        "tonalRamp": [
+          "oklch(15% 0.003 286)",
+          "oklch(25% 0.003 286)",
+          "oklch(35% 0.003 286)",
+          "oklch(45% 0.003 286)",
+          "oklch(55% 0.003 286)",
+          "oklch(65% 0.003 286)",
+          "oklch(75% 0.003 286)",
+          "oklch(85% 0.003 286)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "#ffffff",
+        "dark": "#1c1c1e",
+        "tonalRamp": [
+          "oklch(15% 0.000 90)",
+          "oklch(25% 0.000 90)",
+          "oklch(35% 0.000 90)",
+          "oklch(45% 0.000 90)",
+          "oklch(55% 0.000 90)",
+          "oklch(65% 0.000 90)",
+          "oklch(75% 0.000 90)",
+          "oklch(85% 0.000 90)"
+        ]
+      },
+      "surface-2": {
+        "role": "neutral",
+        "displayName": "Surface 2",
+        "canonical": "#fafafa",
+        "dark": "#2c2c2e",
+        "tonalRamp": [
+          "oklch(15% 0.000 90)",
+          "oklch(25% 0.000 90)",
+          "oklch(35% 0.000 90)",
+          "oklch(45% 0.000 90)",
+          "oklch(55% 0.000 90)",
+          "oklch(65% 0.000 90)",
+          "oklch(75% 0.000 90)",
+          "oklch(85% 0.000 90)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Encre",
+        "canonical": "#1d1d1f",
+        "dark": "#f5f5f7",
+        "tonalRamp": [
+          "oklch(15% 0.004 286)",
+          "oklch(25% 0.004 286)",
+          "oklch(35% 0.004 286)",
+          "oklch(45% 0.004 286)",
+          "oklch(55% 0.004 286)",
+          "oklch(65% 0.004 286)",
+          "oklch(75% 0.004 286)",
+          "oklch(85% 0.004 286)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Encre secondaire",
+        "canonical": "#6e6e73",
+        "dark": "#a1a1a6",
+        "tonalRamp": [
+          "oklch(15% 0.008 286)",
+          "oklch(25% 0.008 286)",
+          "oklch(35% 0.008 286)",
+          "oklch(45% 0.008 286)",
+          "oklch(55% 0.008 286)",
+          "oklch(65% 0.008 286)",
+          "oklch(75% 0.008 286)",
+          "oklch(85% 0.008 286)"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Encre tertiaire",
+        "canonical": "#86868b",
+        "dark": "#7c7c81",
+        "tonalRamp": [
+          "oklch(15% 0.007 286)",
+          "oklch(25% 0.007 286)",
+          "oklch(35% 0.007 286)",
+          "oklch(45% 0.007 286)",
+          "oklch(55% 0.007 286)",
+          "oklch(65% 0.007 286)",
+          "oklch(75% 0.007 286)",
+          "oklch(85% 0.007 286)"
+        ]
+      },
+      "coral": {
+        "role": "primary",
+        "displayName": "Coral (aplat)",
+        "canonical": "#ff7f50",
+        "dark": "#ff8f66",
+        "tonalRamp": [
+          "oklch(15% 0.168 40)",
+          "oklch(25% 0.168 40)",
+          "oklch(35% 0.168 40)",
+          "oklch(45% 0.168 40)",
+          "oklch(55% 0.168 40)",
+          "oklch(65% 0.168 40)",
+          "oklch(75% 0.168 40)",
+          "oklch(85% 0.168 40)"
+        ]
+      },
+      "coral-hover": {
+        "role": "primary",
+        "displayName": "Coral survol",
+        "canonical": "#ff6f3a",
+        "dark": "#ffa07f",
+        "tonalRamp": [
+          "oklch(15% 0.188 40)",
+          "oklch(25% 0.188 40)",
+          "oklch(35% 0.188 40)",
+          "oklch(45% 0.188 40)",
+          "oklch(55% 0.188 40)",
+          "oklch(65% 0.188 40)",
+          "oklch(75% 0.188 40)",
+          "oklch(85% 0.188 40)"
+        ]
+      },
+      "coral-mark": {
+        "role": "primary",
+        "displayName": "Coral trait",
+        "canonical": "#e8622f",
+        "dark": "#ff8f66",
+        "tonalRamp": [
+          "oklch(15% 0.178 40)",
+          "oklch(25% 0.178 40)",
+          "oklch(35% 0.178 40)",
+          "oklch(45% 0.178 40)",
+          "oklch(55% 0.178 40)",
+          "oklch(65% 0.178 40)",
+          "oklch(75% 0.178 40)",
+          "oklch(85% 0.178 40)"
+        ]
+      },
+      "coral-ink": {
+        "role": "primary",
+        "displayName": "Coral encre",
+        "canonical": "#c2410c",
+        "dark": "#ff8f66",
+        "tonalRamp": [
+          "oklch(15% 0.174 38)",
+          "oklch(25% 0.174 38)",
+          "oklch(35% 0.174 38)",
+          "oklch(45% 0.174 38)",
+          "oklch(55% 0.174 38)",
+          "oklch(65% 0.174 38)",
+          "oklch(75% 0.174 38)",
+          "oklch(85% 0.174 38)"
+        ]
+      },
+      "red": {
+        "role": "tertiary",
+        "displayName": "Rouge conflit",
+        "canonical": "#d70015",
+        "dark": "#ff6b6b",
+        "tonalRamp": [
+          "oklch(15% 0.200 27)",
+          "oklch(25% 0.200 27)",
+          "oklch(35% 0.200 27)",
+          "oklch(45% 0.200 27)",
+          "oklch(55% 0.200 27)",
+          "oklch(65% 0.200 27)",
+          "oklch(75% 0.200 27)",
+          "oklch(85% 0.200 27)"
+        ]
+      },
+      "green": {
+        "role": "tertiary",
+        "displayName": "Vert succès",
+        "canonical": "#147a44",
+        "dark": "#4cd08a",
+        "tonalRamp": [
+          "oklch(15% 0.122 154)",
+          "oklch(25% 0.122 154)",
+          "oklch(35% 0.122 154)",
+          "oklch(45% 0.122 154)",
+          "oklch(55% 0.122 154)",
+          "oklch(65% 0.122 154)",
+          "oklch(75% 0.122 154)",
+          "oklch(85% 0.122 154)"
+        ]
+      },
+      "amber": {
+        "role": "tertiary",
+        "displayName": "Ambre",
+        "canonical": "#b25a00",
+        "dark": "#f0a64a",
+        "tonalRamp": [
+          "oklch(15% 0.140 55)",
+          "oklch(25% 0.140 55)",
+          "oklch(35% 0.140 55)",
+          "oklch(45% 0.140 55)",
+          "oklch(55% 0.140 55)",
+          "oklch(65% 0.140 55)",
+          "oklch(75% 0.140 55)",
+          "oklch(85% 0.140 55)"
+        ]
+      },
+      "series-1": {
+        "role": "categorical",
+        "displayName": "Série 1 — bleu",
+        "canonical": "#2a78d6",
+        "dark": "#3987e5",
+        "tonalRamp": [
+          "oklch(15% 0.163 256)",
+          "oklch(25% 0.163 256)",
+          "oklch(35% 0.163 256)",
+          "oklch(45% 0.163 256)",
+          "oklch(55% 0.163 256)",
+          "oklch(65% 0.163 256)",
+          "oklch(75% 0.163 256)",
+          "oklch(85% 0.163 256)"
+        ]
+      },
+      "series-2": {
+        "role": "categorical",
+        "displayName": "Série 2 — vert",
+        "canonical": "#1baf7a",
+        "dark": "#199e70",
+        "tonalRamp": [
+          "oklch(15% 0.141 162)",
+          "oklch(25% 0.141 162)",
+          "oklch(35% 0.141 162)",
+          "oklch(45% 0.141 162)",
+          "oklch(55% 0.141 162)",
+          "oklch(65% 0.141 162)",
+          "oklch(75% 0.141 162)",
+          "oklch(85% 0.141 162)"
+        ]
+      },
+      "series-3": {
+        "role": "categorical",
+        "displayName": "Série 3 — jaune",
+        "canonical": "#eda100",
+        "dark": "#c98500",
+        "tonalRamp": [
+          "oklch(15% 0.161 75)",
+          "oklch(25% 0.161 75)",
+          "oklch(35% 0.161 75)",
+          "oklch(45% 0.161 75)",
+          "oklch(55% 0.161 75)",
+          "oklch(65% 0.161 75)",
+          "oklch(75% 0.161 75)",
+          "oklch(85% 0.161 75)"
+        ]
+      },
+      "series-4": {
+        "role": "categorical",
+        "displayName": "Série 4 — rose",
+        "canonical": "#e87ba4",
+        "dark": "#d55181",
+        "tonalRamp": [
+          "oklch(15% 0.141 357)",
+          "oklch(25% 0.141 357)",
+          "oklch(35% 0.141 357)",
+          "oklch(45% 0.141 357)",
+          "oklch(55% 0.141 357)",
+          "oklch(65% 0.141 357)",
+          "oklch(75% 0.141 357)",
+          "oklch(85% 0.141 357)"
+        ]
+      },
+      "series-5": {
+        "role": "categorical",
+        "displayName": "Série 5 — vert foncé",
+        "canonical": "#008300",
+        "dark": "#2fa02f",
+        "tonalRamp": [
+          "oklch(15% 0.180 142)",
+          "oklch(25% 0.180 142)",
+          "oklch(35% 0.180 142)",
+          "oklch(45% 0.180 142)",
+          "oklch(55% 0.180 142)",
+          "oklch(65% 0.180 142)",
+          "oklch(75% 0.180 142)",
+          "oklch(85% 0.180 142)"
+        ]
+      },
+      "series-6": {
+        "role": "categorical",
+        "displayName": "Série 6 — indigo",
+        "canonical": "#4a3aa7",
+        "dark": "#9085e9",
+        "tonalRamp": [
+          "oklch(15% 0.167 284)",
+          "oklch(25% 0.167 284)",
+          "oklch(35% 0.167 284)",
+          "oklch(45% 0.167 284)",
+          "oklch(55% 0.167 284)",
+          "oklch(65% 0.167 284)",
+          "oklch(75% 0.167 284)",
+          "oklch(85% 0.167 284)"
+        ]
+      },
+      "series-other": {
+        "role": "categorical",
+        "displayName": "Série autres",
+        "canonical": "#86868b",
+        "dark": "#7c7c81",
+        "tonalRamp": [
+          "oklch(15% 0.007 286)",
+          "oklch(25% 0.007 286)",
+          "oklch(35% 0.007 286)",
+          "oklch(45% 0.007 286)",
+          "oklch(55% 0.007 286)",
+          "oklch(65% 0.007 286)",
+          "oklch(75% 0.007 286)",
+          "oklch(85% 0.007 286)"
+        ]
+      },
+      "surface-hover": {
+        "role": "neutral",
+        "canonical": "rgba(0, 0, 0, 0.035)",
+        "dark": "rgba(255, 255, 255, 0.06)",
+        "displayName": "Survol"
+      },
+      "surface-pressed": {
+        "role": "neutral",
+        "canonical": "rgba(0, 0, 0, 0.06)",
+        "dark": "rgba(255, 255, 255, 0.1)",
+        "displayName": "Pression"
+      },
+      "glass": {
+        "role": "neutral",
+        "canonical": "rgba(246, 246, 248, 0.78)",
+        "dark": "rgba(28, 28, 30, 0.72)",
+        "displayName": "Verre dépoli (sidebar, topbar)"
+      },
+      "separator": {
+        "role": "neutral",
+        "canonical": "rgba(0, 0, 0, 0.08)",
+        "dark": "rgba(255, 255, 255, 0.1)",
+        "displayName": "Hairline"
+      },
+      "separator-strong": {
+        "role": "neutral",
+        "canonical": "rgba(0, 0, 0, 0.14)",
+        "dark": "rgba(255, 255, 255, 0.18)",
+        "displayName": "Hairline forte"
+      },
+      "coral-tint": {
+        "role": "primary",
+        "canonical": "rgba(255, 127, 80, 0.14)",
+        "dark": "rgba(255, 143, 102, 0.18)",
+        "displayName": "Coral teinte"
+      },
+      "coral-tint-strong": {
+        "role": "primary",
+        "canonical": "rgba(255, 127, 80, 0.24)",
+        "dark": "rgba(255, 143, 102, 0.3)",
+        "displayName": "Coral teinte forte"
+      },
+      "on-coral": {
+        "role": "primary",
+        "canonical": "#1d1d1f",
+        "dark": "#1d1d1f",
+        "displayName": "Encre sur coral"
+      },
+      "red-tint": {
+        "role": "tertiary",
+        "canonical": "rgba(215, 0, 21, 0.1)",
+        "dark": "rgba(255, 107, 107, 0.16)",
+        "displayName": "Rouge teinte"
+      },
+      "green-tint": {
+        "role": "tertiary",
+        "canonical": "rgba(20, 122, 68, 0.12)",
+        "dark": "rgba(76, 208, 138, 0.16)",
+        "displayName": "Vert teinte"
+      },
+      "amber-tint": {
+        "role": "tertiary",
+        "canonical": "rgba(178, 90, 0, 0.12)",
+        "dark": "rgba(240, 166, 74, 0.16)",
+        "displayName": "Ambre teinte"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display (compteurs)",
+        "purpose": "Chiffres clés du tableau de bord posés sur la toile ; 2rem sur mobile."
+      },
+      "headline": {
+        "displayName": "Titre de page (h1)",
+        "purpose": "Un par écran ; 1.45rem sur mobile ; suivi d'une phrase d'état en ink-2."
+      },
+      "title": {
+        "displayName": "Titre de section (h2)",
+        "purpose": "Sections et panneaux ; h3 à 1rem pour les sous-sections."
+      },
+      "body": {
+        "displayName": "Corps",
+        "purpose": "15px de base ; 0.9rem dans les tables, boutons et nav ; 0.88rem dans les alertes et menus."
+      },
+      "label": {
+        "displayName": "Libellé",
+        "purpose": "Libellés de champs et noms dans les jauges ; 0.78rem/500 pour les en-têtes de table et capsules."
+      },
+      "caption": {
+        "displayName": "Légende",
+        "purpose": "Méta, hints, sous-titres de section, erreurs de champ."
+      },
+      "micro": {
+        "displayName": "Micro",
+        "purpose": "Heures du calendrier et de la carte de chaleur ; noms de jours en uppercase +0.04em (calendrier seulement)."
+      }
+    },
+    "shadows": [
+      {
+        "name": "level-0-flat",
+        "value": "none; border: 1px solid var(--separator)",
+        "purpose": "Panneaux, tables, calendrier, champs, chrome : la profondeur au repos est une hairline."
+      },
+      {
+        "name": "shadow-float",
+        "value": "0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 30px rgba(0, 0, 0, 0.08)",
+        "dark": "0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.5)",
+        "purpose": "Niveau 1 : tiroir mobile et bottom sheets des panneaux d'affectation / résolution."
+      },
+      {
+        "name": "shadow-menu",
+        "value": "0 1px 2px rgba(0, 0, 0, 0.06), 0 12px 40px rgba(0, 0, 0, 0.14)",
+        "dark": "0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 40px rgba(0, 0, 0, 0.6)",
+        "purpose": "Niveau 2 : popovers ancrés (menu utilisateur)."
+      },
+      {
+        "name": "focus",
+        "value": "0 0 0 3.5px rgba(255, 127, 80, 0.35)",
+        "dark": "0 0 0 3.5px rgba(255, 143, 102, 0.4)",
+        "purpose": "Anneau de focus unique (:focus-visible, champs au focus)."
+      },
+      {
+        "name": "segmented-on",
+        "value": "0 1px 2px rgba(0, 0, 0, 0.1)",
+        "purpose": "Micro-relief de l'onglet actif du contrôle segmenté, uniquement."
+      },
+      {
+        "name": "glass",
+        "value": "backdrop-filter: saturate(180%) blur(20px); background: var(--glass)",
+        "purpose": "Verre dépoli : sidebar et topbar seulement."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.25, 0.1, 0.25, 1)",
+        "purpose": "Easing des transitions d'état."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Easing des entrées (route, menu, tiroir, jauges)."
+      },
+      {
+        "name": "t",
+        "value": "180ms",
+        "purpose": "Durée des survols, focus, changements de couleur."
+      },
+      {
+        "name": "t-slow",
+        "value": "320ms",
+        "purpose": "Repli sidebar, tiroir mobile, jauges, changement de thème."
+      },
+      {
+        "name": "press",
+        "value": "transform 120ms; scale(0.985)",
+        "purpose": "Pression des boutons."
+      },
+      {
+        "name": "view-in",
+        "value": "400ms ease-out, delay 40ms; from { opacity: 0; transform: translateY(6px); filter: blur(6px) }",
+        "purpose": "Le seul mouvement du système : enfants directs de .page au changement de route."
+      },
+      {
+        "name": "menu-in",
+        "value": "180ms ease-out; from { opacity: 0; transform: translateY(-4px) scale(0.98) }",
+        "purpose": "Entrée du popover de menu utilisateur."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "@media (prefers-reduced-motion: reduce) { animation-duration: 0.001ms; transition-duration: 0.001ms; iteration-count: 1 }",
+        "purpose": "Coupe toutes les animations et transitions."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "max-width: 767px"
+      },
+      {
+        "name": "tablet",
+        "value": "768px – 1023px"
+      },
+      {
+        "name": "page-max",
+        "value": "1200px"
+      },
+      {
+        "name": "sidebar",
+        "value": "240px (rail 68px)"
+      },
+      {
+        "name": "topbar",
+        "value": "52px"
+      }
+    ],
+    "categoricalPalette": {
+      "rule": "Couleur par ressource du type actif, triée par nom, ordre fixe series-1..6 puis series-other ; jamais cyclée.",
+      "tint": "color-mix(in srgb, var(--c) 16%, var(--surface)) ; survol 24 % ; titre color-mix(var(--c) 70%, var(--text))"
+    }
+  },
+  "components": [
+    {
+      "name": "Bouton primaire",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "L'action primaire de l'écran : aplat coral, encre sombre, graisse 600. Une par écran.",
+      "html": "<button class=\"ds-btn-primary\"><svg viewBox='0 0 24 24' aria-hidden='true' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3.5l1.8 5.2 5.2 1.8-5.2 1.8L12 17.5l-1.8-5.2L5 10.5l5.2-1.8zM19 16.5l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z'/></svg>Générer le planning</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;height:var(--control-h,34px);padding:0 .95rem;border:1px solid transparent;border-radius:var(--r-sm,7px);font:inherit;font-size:.9rem;font-weight:500;letter-spacing:-.006em;white-space:nowrap;cursor:pointer;transition:background 180ms cubic-bezier(.25,.1,.25,1),border-color 180ms cubic-bezier(.25,.1,.25,1),color 180ms cubic-bezier(.25,.1,.25,1),transform 120ms cubic-bezier(.25,.1,.25,1);background:var(--accent,#ff7f50);color:var(--on-accent,#1d1d1f);font-weight:600;}.ds-btn-primary:hover{background:var(--accent-hover,#ff6f3a);}.ds-btn-primary:active{transform:scale(.985);}.ds-btn-primary:focus-visible{outline:none;box-shadow:var(--focus,0 0 0 3.5px rgba(255,127,80,.35));}.ds-btn-primary:disabled{opacity:.45;cursor:default;}"
+    },
+    {
+      "name": "Bouton ghost",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Action secondaire : surface blanche cerclée d'une hairline forte.",
+      "html": "<button class=\"ds-btn-ghost\">Aujourd'hui</button>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;height:var(--control-h,34px);padding:0 .95rem;border:1px solid transparent;border-radius:var(--r-sm,7px);font:inherit;font-size:.9rem;font-weight:500;letter-spacing:-.006em;white-space:nowrap;cursor:pointer;transition:background 180ms cubic-bezier(.25,.1,.25,1),border-color 180ms cubic-bezier(.25,.1,.25,1),color 180ms cubic-bezier(.25,.1,.25,1),transform 120ms cubic-bezier(.25,.1,.25,1);background:var(--surface,#fff);color:var(--text,#1d1d1f);border-color:var(--separator-strong,rgba(0,0,0,.14));}.ds-btn-ghost:hover{background:var(--surface-hover,rgba(0,0,0,.035));}.ds-btn-ghost:active{transform:scale(.985);}.ds-btn-ghost:focus-visible{outline:none;box-shadow:var(--focus,0 0 0 3.5px rgba(255,127,80,.35));}"
+    },
+    {
+      "name": "Bouton plain",
+      "kind": "button",
+      "refersTo": "button-plain",
+      "description": "Action tertiaire ou lien-bouton : texte coral encre, fond coral teinte au survol.",
+      "html": "<button class=\"ds-btn-plain\">Tout voir</button>",
+      "css": ".ds-btn-plain{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;height:var(--control-h,34px);padding:0 .95rem;border:1px solid transparent;border-radius:var(--r-sm,7px);font:inherit;font-size:.9rem;font-weight:500;letter-spacing:-.006em;white-space:nowrap;cursor:pointer;transition:background 180ms cubic-bezier(.25,.1,.25,1),border-color 180ms cubic-bezier(.25,.1,.25,1),color 180ms cubic-bezier(.25,.1,.25,1),transform 120ms cubic-bezier(.25,.1,.25,1);background:transparent;color:var(--accent-ink,#c2410c);}.ds-btn-plain:hover{background:var(--accent-tint,rgba(255,127,80,.14));}.ds-btn-plain:active{transform:scale(.985);}.ds-btn-plain:focus-visible{outline:none;box-shadow:var(--focus,0 0 0 3.5px rgba(255,127,80,.35));}"
+    },
+    {
+      "name": "Champ de saisie",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Libellé au-dessus en 0.85rem/500 gris ; champ 34px, hairline forte, focus = bordure coral trait + anneau coral.",
+      "html": "<label class=\"ds-field\"><span>Nom du planning</span><input class=\"ds-input\" placeholder=\"Semaine 38 — rentrée\"></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:.35rem;font-size:.85rem;font-weight:500;color:var(--text-2,#6e6e73);}.ds-input{width:100%;height:var(--control-h,34px);padding:0 .7rem;border:1px solid var(--separator-strong,rgba(0,0,0,.14));border-radius:var(--r-sm,7px);background:var(--surface,#fff);color:var(--text,#1d1d1f);font:inherit;font-size:.92rem;transition:border-color 180ms cubic-bezier(.25,.1,.25,1),box-shadow 180ms cubic-bezier(.25,.1,.25,1);}.ds-input::placeholder{color:var(--text-3,#86868b);}.ds-input:focus{outline:none;border-color:var(--accent-mark,#e8622f);box-shadow:var(--focus,0 0 0 3.5px rgba(255,127,80,.35));}"
+    },
+    {
+      "name": "Élément de navigation",
+      "kind": "nav",
+      "refersTo": "nav-item-active",
+      "description": "Item de sidebar 34px : icône trait 1.6 en gris, actif = fond coral teinte, texte coral encre, icône coral trait.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item is-active\" href=\"#\"><svg viewBox='0 0 24 24' aria-hidden='true' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M4.5 6h15v14h-15zM4.5 10.5h15M8 3.5V7M16 3.5V7'/></svg>Plannings</a><a class=\"ds-nav-item\" href=\"#\"><svg viewBox='0 0 24 24' aria-hidden='true' width='16' height='16' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M4.5 6h15v14h-15zM4.5 10.5h15M8 3.5V7M16 3.5V7'/></svg>Activités</a></nav>",
+      "css": ".ds-nav{display:flex;flex-direction:column;gap:2px;width:220px;padding:.6rem;background:var(--glass,rgba(246,246,248,.78));backdrop-filter:saturate(180%) blur(20px);border-right:1px solid var(--separator,rgba(0,0,0,.08));}.ds-nav-item{display:flex;align-items:center;gap:.6rem;height:34px;padding:0 .6rem;border-radius:var(--r-sm,7px);color:var(--text,#1d1d1f);font-size:.9rem;font-weight:500;text-decoration:none;white-space:nowrap;transition:background 180ms cubic-bezier(.25,.1,.25,1),color 180ms cubic-bezier(.25,.1,.25,1);}.ds-nav-item svg{width:18px;height:18px;color:var(--text-2,#6e6e73);transition:color 180ms;}.ds-nav-item:hover{background:var(--surface-hover,rgba(0,0,0,.035));}.ds-nav-item:active{background:var(--surface-pressed,rgba(0,0,0,.06));}.ds-nav-item.is-active{background:var(--accent-tint,rgba(255,127,80,.14));color:var(--accent-ink,#c2410c);}.ds-nav-item.is-active svg{color:var(--accent-mark,#e8622f);}.ds-nav-item:focus-visible{outline:none;box-shadow:var(--focus,0 0 0 3.5px rgba(255,127,80,.35));}"
+    },
+    {
+      "name": "Capsules d'état et tag",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Pilule 22px teintée à 10–14 % avec texte dans la couleur pleine ; tag coral à coins 6px.",
+      "html": "<span class=\"ds-badge\">Brouillon</span> <span class=\"ds-badge ds-badge--ok\">Actif</span> <span class=\"ds-tag\">teacher</span>",
+      "css": ".ds-badge{display:inline-flex;align-items:center;height:22px;padding:0 .6rem;border-radius:999px;background:var(--surface-hover,rgba(0,0,0,.035));color:var(--text-2,#6e6e73);font-size:.76rem;font-weight:500;}.ds-badge--ok{background:var(--green-tint,rgba(20,122,68,.12));color:var(--green,#147a44);}.ds-tag{display:inline-flex;align-items:center;height:22px;padding:0 .55rem;border-radius:6px;background:var(--accent-tint,rgba(255,127,80,.14));color:var(--accent-ink,#c2410c);font-size:.78rem;font-weight:500;}"
+    },
+    {
+      "name": "Contrôle segmenté",
+      "kind": "chip",
+      "refersTo": "nav-item",
+      "description": "Sélecteur iOS : conteneur gris 8px, onglet actif en surface blanche avec micro-relief 0 1px 2px.",
+      "html": "<div class=\"ds-segmented\"><button class=\"is-on\">class</button><button>equipment</button><button>room</button><button>teacher</button></div>",
+      "css": ".ds-segmented{display:inline-grid;grid-auto-flow:column;padding:2px;border-radius:8px;background:var(--surface-hover,rgba(0,0,0,.035));}.ds-segmented button{height:26px;padding:0 .7rem;border:0;border-radius:6px;background:transparent;color:var(--text-2,#6e6e73);font:inherit;font-size:.8rem;font-weight:500;cursor:pointer;transition:background 180ms,color 180ms,box-shadow 180ms;}.ds-segmented button:hover{color:var(--text,#1d1d1f);}.ds-segmented button.is-on{background:var(--surface,#fff);color:var(--text,#1d1d1f);box-shadow:0 1px 2px rgba(0,0,0,.1);}.ds-segmented button:focus-visible{outline:none;box-shadow:var(--focus,0 0 0 3.5px rgba(255,127,80,.35));}"
+    },
+    {
+      "name": "Panneau",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Surface blanche à hairline, 14px, sans ombre ; en-tête titre 1.125rem + sous-titre gris 0.8rem.",
+      "html": "<section class=\"ds-panel\"><div class=\"ds-panel-head\"><div><h2>Occupation de la semaine</h2><p>Semaine 38 — rentrée · activités simultanées par heure</p></div><button class=\"ds-panel-link\">Ouvrir le planning</button></div><div class=\"ds-panel-body\"></div></section>",
+      "css": ".ds-panel{padding:1.5rem;background:var(--surface,#fff);border:1px solid var(--separator,rgba(0,0,0,.08));border-radius:var(--r-lg,14px);color:var(--text,#1d1d1f);}.ds-panel-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.1rem;}.ds-panel h2{margin:0;font-size:1.125rem;font-weight:600;line-height:1.15;letter-spacing:-.012em;}.ds-panel p{margin:.15rem 0 0;font-size:.8rem;color:var(--text-2,#6e6e73);}.ds-panel-link{border:0;background:transparent;color:var(--accent-ink,#c2410c);font:inherit;font-size:.88rem;cursor:pointer;}.ds-panel-link:hover{text-decoration:underline;}.ds-panel-body{height:64px;border-radius:4px;background:var(--surface-hover,rgba(0,0,0,.035));}"
+    },
+    {
+      "name": "Compteur du tableau de bord",
+      "kind": "custom",
+      "refersTo": "panel",
+      "description": "Chiffre clé en 2.6rem/600/−0.03em posé sur la toile, sans carte ; le score est le seul en coral encre.",
+      "html": "<div class=\"ds-figures\"><a class=\"ds-figure\" href=\"#\"><span class=\"ds-figure-value\">9</span><span class=\"ds-figure-label\">ressources actives</span><span class=\"ds-figure-meta\">0 inactive(s)</span></a><a class=\"ds-figure is-accent\" href=\"#\"><span class=\"ds-figure-value\">100<small>/100</small></span><span class=\"ds-figure-label\">score du dernier planning</span><span class=\"ds-figure-meta\">7 affectation(s), 0 conflit garanti</span></a></div>",
+      "css": ".ds-figures{display:grid;grid-template-columns:1fr 1fr;gap:0 2rem;padding:.25rem 0 1.5rem;border-bottom:1px solid var(--separator,rgba(0,0,0,.08));background:var(--bg,#f5f5f7);}.ds-figure{display:flex;flex-direction:column;gap:.15rem;padding:.75rem 0;color:var(--text,#1d1d1f);text-decoration:none;}.ds-figure-value{font-size:2.6rem;font-weight:600;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;}.ds-figure-value small{margin-left:.15rem;font-size:1rem;font-weight:500;color:var(--text-2,#6e6e73);letter-spacing:0;}.ds-figure-label{margin-top:.35rem;font-size:.9rem;font-weight:500;transition:color 180ms;}.ds-figure-meta{font-size:.8rem;color:var(--text-2,#6e6e73);}.ds-figure:hover .ds-figure-label{color:var(--accent-ink,#c2410c);}.ds-figure.is-accent .ds-figure-value{color:var(--accent-ink,#c2410c);}"
+    },
+    {
+      "name": "Bloc d'événement (calendrier)",
+      "kind": "custom",
+      "refersTo": "panel",
+      "description": "Aplat teinté à 16 % de la couleur de série, sans barre latérale ; titre 0.78rem/600 mixé à 70 % avec l'encre ; sélection = contour + anneau 1px.",
+      "html": "<div class=\"ds-cal\"><button class=\"ds-event\" style=\"--c:var(--series-1,#2a78d6)\"><span class=\"ds-event-title\">Physique 3e A</span><span class=\"ds-event-time\">08:00–09:50</span><span class=\"ds-event-res\">3e A · Labo B201 · M. Martin</span></button><button class=\"ds-event is-selected\" style=\"--c:var(--series-2,#1baf7a)\"><span class=\"ds-event-title\">Français 3e B</span><span class=\"ds-event-time\">09:30–10:25</span></button><button class=\"ds-event is-compact\" style=\"--c:var(--series-3,#eda100)\"><span class=\"ds-event-title\">Soutien maths</span><span class=\"ds-event-time\">08:55–09:40</span></button></div>",
+      "css": ".ds-cal{display:flex;flex-direction:column;gap:6px;width:180px;padding:8px;background:var(--surface,#fff);border:1px solid var(--separator,rgba(0,0,0,.08));border-radius:var(--r-lg,14px);}.ds-event{display:flex;flex-direction:column;gap:1px;padding:4px 7px;border:1px solid transparent;border-radius:6px;background:color-mix(in srgb,var(--c) 16%,var(--surface,#fff));color:var(--text,#1d1d1f);font:inherit;text-align:left;cursor:pointer;transition:background 180ms,border-color 180ms,box-shadow 180ms;}.ds-event:hover{background:color-mix(in srgb,var(--c) 24%,var(--surface,#fff));}.ds-event.is-selected{border-color:var(--c);box-shadow:0 0 0 1px var(--c);}.ds-event.is-compact{flex-direction:row;align-items:baseline;gap:.4rem;padding-top:2px;padding-bottom:2px;}.ds-event-title{font-size:.78rem;font-weight:600;line-height:1.2;color:color-mix(in srgb,var(--c) 70%,var(--text,#1d1d1f));}.ds-event-time{font-size:.7rem;color:var(--text-2,#6e6e73);font-variant-numeric:tabular-nums;}.ds-event-res{font-size:.68rem;color:var(--text-2,#6e6e73);}.ds-event:focus-visible{outline:none;box-shadow:var(--focus,0 0 0 3.5px rgba(255,127,80,.35));}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Le Calendrier qui s'efface",
+    "overview": "Prognize est un outil d'exploitation (mode Operate) pour un responsable planning sous pression : l'interface disparaît derrière le planning. Le monde visuel est celui d'Apple — Calendrier macOS, Réglages Système, apple.com — transposé au web : une toile gris très clair, des surfaces blanches délimitées par des hairlines à 8 % plutôt que par des bordures, des rayons continus, du verre dépoli uniquement sur le chrome (sidebar et topbar), et un sans-serif système (SF sur Apple, Inter auto-hébergé ailleurs) réglé avec un tracking légèrement négatif.\n\nIl n'y a qu'un pigment : le coral. Il ne signale qu'une chose — « agis ici » — et il ne s'exprime jamais en texte clair sur un aplat : en aplat il porte de l'encre sombre, en trait il s'assombrit, en texte il devient brique. Tout le reste est gris. Le tableau de bord refuse la grille de cartes SaaS (cartes-icônes, halos, gradients) : trois compteurs en grande typographie posés sur la toile, un seul panneau bordé (la carte de chaleur), puis des sections séparées par des hairlines. Le calendrier ressemble à Calendrier macOS : blocs teintés sans barre latérale, hairlines, aujourd'hui marqué par une pastille.\n\nLe mouvement est réduit à un moment : un blur-fade à l'arrivée d'une route. Les survols durent 180 ms. Rien de permanent, rien de cascadé ; `prefers-reduced-motion` coupe tout.",
+    "keyCharacteristics": [
+      "Gris Apple (toile `#f5f5f7`, surface blanche, encre `#1d1d1f`), thème sombre miroir (toile `#000`, surface `#1c1c1e`).",
+      "Hairlines à 8 % (14 % pour les contours de contrôles) au lieu de bordures ; pas d'ombre au repos.",
+      "Un seul accent, le coral, en trois états de contraste : aplat + encre sombre, trait `#e8622f`, texte `#c2410c`.",
+      "Chiffres tabulaires partout où il y a des données ; grande typographie 2.6rem pour les compteurs, sans carte.",
+      "Icônes SVG inline 24×24, trait 1.6, héritant de la couleur du texte ; aucun glyphe, aucune police d'icônes.",
+      "Trois niveaux de profondeur : plat (hairline), flottant (feuille/tiroir), menu (popover).",
+      "Un seul mouvement : `view-in` 400 ms / 6 px / blur 6 px, ease-out, au changement de route."
+    ],
+    "rules": [
+      {
+        "name": "The One Pigment Rule",
+        "body": "Le coral est le seul accent de l'interface et il ne signifie qu'« agis ici » : actions primaires, élément de navigation actif, liens, focus, le score du planning. Le chrome (sidebar, topbar, en-têtes, tables) reste gris. Aucune autre couleur de marque, aucun gradient décoratif.",
+        "section": "colors"
+      },
+      {
+        "name": "The Coral Contrast Rule",
+        "body": "Le coral `#ff7f50` est réservé aux aplats et porte toujours l'encre sombre `#1d1d1f` ; il n'est jamais utilisé comme couleur de texte ni de trait fin. Les traits et icônes prennent `#e8622f` ; le texte prend `#c2410c`. Test : un texte coral sur fond clair qui n'est pas `#c2410c` est une erreur.",
+        "section": "colors"
+      },
+      {
+        "name": "The Kind-Color Rule",
+        "body": "Dans le calendrier, la couleur code la ressource d'un type choisi (classe, salle, enseignant, équipement), pas l'activité : les ressources du type actif sont triées par nom et reçoivent `series-1..6` dans cet ordre fixe ; au-delà de six, `series-other`. On ne cycle jamais la palette et on ne réattribue pas les couleurs entre types.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tinted State Rule",
+        "body": "Un état (succès, erreur, statut, conflit) s'exprime par une capsule ou un fond teinté à 10–14 % portant du texte dans la couleur pleine — jamais par un aplat saturé ni par une barre latérale.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Data Rule",
+        "body": "Tout nombre susceptible d'être comparé verticalement ou de changer (compteurs, scores, heures, pourcentages, capacités) est en `tabular-nums`.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Eyebrow Rule",
+        "body": "Pas de sur-titre, kicker ni libellé en capitales au-dessus des titres. La seule exception est native au calendrier : les abréviations de jours en en-tête (0.7rem, uppercase, +0.04em), comme dans Calendrier macOS.",
+        "section": "typography"
+      },
+      {
+        "name": "The Three Planes Rule",
+        "body": "Trois plans et pas davantage : plat (hairline), flottant (`shadow-float`), menu (`shadow-menu`). Une ombre ne récompense pas le survol et ne décore pas une carte ; elle indique qu'un élément a quitté le plan de la page.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Glass Is Chrome Rule",
+        "body": "Le verre dépoli est réservé à la sidebar et à la topbar. Aucune carte, aucun panneau, aucune modale n'est translucide.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do délimiter par des hairlines (`separator` 8 %) et le contraste toile / surface ; réserver `separator-strong` (14 %) aux contours de contrôles.",
+      "Do utiliser le coral selon son contraste : aplat `#ff7f50` + encre `#1d1d1f`, trait `#e8622f`, texte `#c2410c`.",
+      "Do coder la couleur du calendrier par ressource du type actif, dans l'ordre fixe `series-1..6` puis `series-other`.",
+      "Do poser les chiffres clés en grande typographie (2.6rem / 600 / −0.03em) directement sur la toile, avec `tabular-nums`.",
+      "Do exprimer les états par capsules ou fonds teintés à 10–14 % portant du texte dans la couleur pleine.",
+      "Do garder une hauteur de contrôle de 34px et des rayons 7 / 10 / 14px ; pilules uniquement pour les capsules et chips.",
+      "Do utiliser les icônes SVG du système (`ICONS`, trait 1.6, `currentColor`), dimensionnées en `1em`.",
+      "Do limiter le mouvement à `view-in` au changement de route et à des transitions de 180 ms ; respecter `prefers-reduced-motion`."
+    ],
+    "donts": [
+      "Don't écrire du texte ou tracer des traits fins en `#ff7f50` ; ne jamais mettre de blanc sur le coral.",
+      "Don't ajouter une ombre au repos à une carte, un panneau ou une table, ni au survol ; les seules ombres sont `shadow-float` (feuilles, tiroir) et `shadow-menu` (popovers).",
+      "Don't appliquer le verre dépoli ailleurs que sur la sidebar et la topbar.",
+      "Don't construire le tableau de bord en grille de cartes avec icônes, halos ou gradients ; sections séparées par des hairlines.",
+      "Don't dessiner de barre latérale colorée sur les blocs du calendrier ; la couleur est un aplat teinté à 16 %.",
+      "Don't cycler la palette catégorielle ni réattribuer les couleurs entre types de ressources.",
+      "Don't introduire de kicker, sur-titre ou libellé en capitales au-dessus des titres ; l'uppercase est réservé aux abréviations de jours du calendrier.",
+      "Don't introduire d'animation permanente, en cascade ou de plus de 400 ms."
+    ]
+  }
+}

@@ -480,3 +480,10 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Skills Claude Code : binaire impeccable (re-telecharge au premier lancement) et reglages locaux
+.claude/skills/impeccable/scripts/bin/
+.claude/settings.local.json
+
+# captures de revue impeccable
+.impeccable/review/
