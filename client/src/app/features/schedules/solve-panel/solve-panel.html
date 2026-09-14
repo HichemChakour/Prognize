@@ -3,11 +3,11 @@
     <h2>Générer le planning</h2>
     <button
       type="button"
-      class="btn btn--sm btn--ghost"
+      class="btn btn--sm btn--icon btn--ghost"
       (click)="closed.emit()"
       aria-label="Fermer"
     >
-      ✕
+      <app-icon name="close" />
     </button>
   </header>
 
@@ -64,7 +64,7 @@
         class="btn btn--primary"
         [disabled]="running() || selectedDays().size === 0"
       >
-        {{ running() ? 'Calcul en cours…' : '⚡ Générer' }}
+        {{ running() ? 'Calcul en cours…' : 'Générer' }}
       </button>
     </div>
   </form>

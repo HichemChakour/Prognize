@@ -19,12 +19,26 @@
     <div class="week-nav">
       @if (isAdmin()) {
         <button type="button" class="btn btn--primary btn--sm solve-btn" (click)="openSolve()">
-          ⚡ Générer le planning
+          <app-icon name="sparkle" /> Générer le planning
         </button>
       }
-      <button type="button" class="btn btn--ghost btn--sm" (click)="shift(-1)">‹</button>
+      <button
+        type="button"
+        class="btn btn--ghost btn--sm btn--icon"
+        (click)="shift(-1)"
+        aria-label="Précédent"
+      >
+        <app-icon name="chevronLeft" />
+      </button>
       <button type="button" class="btn btn--ghost btn--sm" (click)="goToday()">Aujourd'hui</button>
-      <button type="button" class="btn btn--ghost btn--sm" (click)="shift(1)">›</button>
+      <button
+        type="button"
+        class="btn btn--ghost btn--sm btn--icon"
+        (click)="shift(1)"
+        aria-label="Suivant"
+      >
+        <app-icon name="chevronRight" />
+      </button>
       <span class="week-nav__label">{{ weekLabel() }}</span>
     </div>
   </header>
@@ -51,14 +65,30 @@
 
   @if (kinds().length > 0) {
     <div class="legend">
-      <label class="legend__by">
+      <div class="legend__by">
         <span>Couleur par</span>
-        <select (change)="setColorKind($any($event.target).value)">
-          @for (k of kinds(); track k) {
-            <option [value]="k" [selected]="k === activeColorKind()">{{ k }}</option>
-          }
-        </select>
-      </label>
+        @if (kinds().length <= 5) {
+          <div class="segmented" role="radiogroup" aria-label="Type de ressource pour la couleur">
+            @for (k of kinds(); track k) {
+              <button
+                type="button"
+                role="radio"
+                [attr.aria-checked]="k === activeColorKind()"
+                [class.is-on]="k === activeColorKind()"
+                (click)="setColorKind(k)"
+              >
+                {{ k }}
+              </button>
+            }
+          </div>
+        } @else {
+          <select (change)="setColorKind($any($event.target).value)">
+            @for (k of kinds(); track k) {
+              <option [value]="k" [selected]="k === activeColorKind()">{{ k }}</option>
+            }
+          </select>
+        }
+      </div>
       <div class="legend__chips">
         @for (e of legend(); track e.id) {
           <button
@@ -74,7 +104,7 @@
         }
         @if (highlightId()) {
           <button type="button" class="chip chip--reset" (click)="highlightId.set(null)">
-            ✕ Tout afficher
+            <app-icon name="close" /> Tout afficher
           </button>
         }
       </div>
@@ -131,7 +161,11 @@
                 [style.top.px]="p.top"
                 [style.height.px]="p.height"
                 [style.left.%]="(100 / p.lanes) * p.lane"
-                [style.width.%]="100 / p.lanes"
+                [style.width.%]="p.lanes === 1 ? 100 : 100 / p.lanes + 12"
+                [style.z-index]="p.lane + 1"
+                [class.is-laned]="p.lane > 0"
+                [class.is-compact]="p.compact"
+                [class.is-dense]="p.dense"
                 [title]="
                   p.assignment.conflicts.length
                     ? p.assignment.conflicts[0].message

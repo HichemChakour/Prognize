@@ -28,8 +28,10 @@ type WindowGroup = FormGroup<{
 
 const KIND_SUGGESTIONS = ['room', 'teacher', 'class', 'equipment'];
 
+import { Icon } from '../../../shared/directives/icon';
+
 @Component({
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, Icon],
   selector: 'app-resource-form',
   styleUrl: './resource-form.scss',
   templateUrl: './resource-form.html',

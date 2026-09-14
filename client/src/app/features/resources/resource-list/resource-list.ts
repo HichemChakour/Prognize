@@ -4,8 +4,10 @@ import { Auth } from '../../../core/auth/auth';
 import { Resource } from '../../../core/resources/resource.models';
 import { Resources } from '../../../core/resources/resources';
 
+import { Icon } from '../../../shared/directives/icon';
+
 @Component({
-  imports: [RouterLink],
+  imports: [RouterLink, Icon],
   selector: 'app-resource-list',
   styleUrl: './resource-list.scss',
   templateUrl: './resource-list.html',

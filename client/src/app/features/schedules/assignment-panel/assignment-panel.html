@@ -3,11 +3,11 @@
     <h2>{{ isEdit() ? "Modifier l'affectation" : 'Placer une activité' }}</h2>
     <button
       type="button"
-      class="btn btn--sm btn--ghost"
+      class="btn btn--sm btn--icon btn--ghost"
       (click)="closed.emit()"
       aria-label="Fermer"
     >
-      ✕
+      <app-icon name="close" />
     </button>
   </header>
 
@@ -79,7 +79,7 @@
                 <span class="side-panel__cap">{{ r.capacity }}</span>
               }
               @if (pinnedIds().has(r.id)) {
-                <span class="side-panel__pin" title="Imposée par l'activité">★</span>
+                <app-icon class="side-panel__pin" name="pin" title="Imposée par l'activité" />
               }
             </label>
           }

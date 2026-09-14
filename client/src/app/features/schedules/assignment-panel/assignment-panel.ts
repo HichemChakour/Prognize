@@ -25,8 +25,10 @@ import {
 
 export type PanelState = { mode: 'create'; start: Date } | { mode: 'edit'; assignment: Assignment };
 
+import { Icon } from '../../../shared/directives/icon';
+
 @Component({
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Icon],
   selector: 'app-assignment-panel',
   styleUrl: './assignment-panel.scss',
   templateUrl: './assignment-panel.html',

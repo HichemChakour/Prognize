@@ -1,29 +1,26 @@
 .priority {
   display: inline-flex;
   gap: 3px;
-
   &__dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    background: var(--border);
+    background: var(--separator-strong);
     &.is-on {
-      background: var(--primary);
+      background: var(--text-2);
     }
   }
-
   &[data-level='5'] .priority__dot.is-on {
-    background: var(--danger);
+    background: var(--accent-mark);
   }
 }
-
 .tag {
   margin-right: 0.3rem;
 }
 .tag--pinned {
-  background: var(--success-soft);
-  color: var(--success);
+  background: var(--green-tint);
+  color: var(--green);
 }
 .muted {
-  color: var(--text-muted);
+  color: var(--text-3);
 }

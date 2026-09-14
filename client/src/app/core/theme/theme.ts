@@ -19,7 +19,9 @@ export class Theme {
       ],
   );
 
-  readonly icon = computed(() => ({ system: '◐', light: '☀', dark: '☾' })[this.mode()]);
+  readonly icon = computed(
+    () => (({ system: 'auto', light: 'sun', dark: 'moon' }) as const)[this.mode()],
+  );
 
   constructor() {
     effect(() => {
@@ -36,6 +38,10 @@ export class Theme {
         /* stockage indisponible : on garde l'état en mémoire */
       }
     });
+  }
+
+  set(mode: ThemeMode): void {
+    this.mode.set(mode);
   }
 
   cycle(): void {

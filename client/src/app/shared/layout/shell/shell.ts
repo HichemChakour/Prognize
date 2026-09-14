@@ -4,12 +4,13 @@ import { filter } from 'rxjs';
 import { Auth } from '../../../core/auth/auth';
 import { Viewport } from '../../../core/layout/viewport';
 import { Theme } from '../../../core/theme/theme';
+import { Icon } from '../../directives/icon';
 import { NAV_ITEMS } from '../nav-items';
 
 const COLLAPSED_KEY = 'prognize.sidebar.collapsed';
 
 @Component({
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, Icon],
   selector: 'app-shell',
   styleUrl: './shell.scss',
   templateUrl: './shell.html',

@@ -34,6 +34,8 @@ interface PlacedAssignment {
   lanes: number;
   color: string;
   dimmed: boolean;
+  compact: boolean;
+  dense: boolean;
 }
 
 interface LegendEntry {
@@ -44,8 +46,10 @@ interface LegendEntry {
 
 const SERIES_COUNT = 6;
 
+import { Icon } from '../../../shared/directives/icon';
+
 @Component({
-  imports: [RouterLink, AssignmentPanel, SolvePanel],
+  imports: [RouterLink, AssignmentPanel, SolvePanel, Icon],
   selector: 'app-schedule-detail',
   styleUrl: './schedule-detail.scss',
   templateUrl: './schedule-detail.html',
@@ -275,7 +279,17 @@ export class ScheduleDetail implements OnInit {
       const pivot = assignment.resources.find((r) => r.kind === kind);
       const color = (pivot && colorById.get(pivot.id)) ?? 'var(--series-other)';
       const dimmed = highlightId !== null && pivot?.id !== highlightId;
-      return { assignment, top, height, lane, lanes: 1, color, dimmed };
+      return {
+        assignment,
+        top,
+        height,
+        lane,
+        lanes: 1,
+        color,
+        dimmed,
+        compact: height < 40,
+        dense: height < 64,
+      };
     });
     const lanes = Math.max(1, laneEnds.length);
     return placed.map((p) => ({ ...p, lanes }));

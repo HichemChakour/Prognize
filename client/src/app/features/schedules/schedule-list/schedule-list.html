@@ -43,18 +43,27 @@
                 [class.badge--ok]="s.status === 'Published'"
                 [class.badge--off]="s.status !== 'Published'"
               >
-                {{ s.status }}
+                {{ statusLabels[s.status] }}
               </span>
             </td>
             <td class="num">{{ s.assignmentCount }}</td>
             <td class="muted">{{ s.updatedAt.slice(0, 10) }}</td>
             <td class="actions">
-              <a [routerLink]="['/schedules', s.id]" class="btn btn--sm btn--ghost">Ouvrir</a>
-              @if (isAdmin()) {
-                <button type="button" class="btn btn--sm btn--danger" (click)="remove(s)">
-                  Supprimer
-                </button>
-              }
+              <span class="row-actions">
+                <a [routerLink]="['/schedules', s.id]" class="btn btn--sm btn--ghost">Ouvrir</a>
+                @if (isAdmin()) {
+                  <button
+                    type="button"
+                    class="btn btn--sm btn--icon btn--danger"
+                    (click)="remove(s)"
+                    aria-label="Supprimer"
+                    title="Supprimer"
+                  >
+                    <app-icon name="trash" />
+                  </button>
+                }
+              </span>
+              <app-icon class="row-chevron" name="chevronRight" />
             </td>
           </tr>
         } @empty {

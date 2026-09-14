@@ -1,7 +1,16 @@
 <header class="page-header">
   <div>
-    <h1>{{ greeting() }} {{ auth.user()?.displayName }}</h1>
-    <p class="page-header__subtitle">{{ auth.user()?.organizationName }}</p>
+    <h1>{{ greeting() }}, {{ auth.user()?.displayName }}</h1>
+    <p class="page-header__subtitle">
+      @if (isEmpty()) {
+        Commencez par déclarer vos ressources.
+      } @else if (latestSchedule(); as s) {
+        Dernier planning : {{ s.name }} · {{ s.assignmentCount }} affectation(s) · modifié
+        {{ relativeDate(s.updatedAt) }}.
+      } @else {
+        Vos ressources et activités sont prêtes. Créez un premier planning.
+      }
+    </p>
   </div>
   @if (isAdmin() && !isEmpty()) {
     <a routerLink="/schedules" class="btn btn--primary">Ouvrir les plannings</a>
@@ -13,22 +22,22 @@
 } @else if (error(); as message) {
   <p class="alert alert--error">{{ message }}</p>
 } @else {
-  <!-- KPI row -->
-  <section class="kpis" aria-label="Chiffres clés">
-    <a routerLink="/resources" class="stat" [style.--i]="0">
-      <span class="stat__label">Ressources actives</span>
-      <span class="stat__value" [appCountUp]="activeResources()"></span>
-      <span class="stat__meta">{{ resources().length - activeResources() }} inactive(s)</span>
+  <!-- chiffres clés : typographie, pas cartes -->
+  <section class="figures" aria-label="Chiffres clés">
+    <a routerLink="/resources" class="figure">
+      <span class="figure__value">{{ activeResources() }}</span>
+      <span class="figure__label">ressources actives</span>
+      <span class="figure__meta">{{ resources().length - activeResources() }} inactive(s)</span>
     </a>
-    <a routerLink="/activities" class="stat" [style.--i]="1">
-      <span class="stat__label">Activités à planifier</span>
-      <span class="stat__value" [appCountUp]="activeActivities()"></span>
-      <span class="stat__meta">{{ totalHoursLabel() }} au total</span>
+    <a routerLink="/activities" class="figure">
+      <span class="figure__value">{{ activeActivities() }}</span>
+      <span class="figure__label">activités à planifier</span>
+      <span class="figure__meta">{{ totalHoursLabel() }} au total</span>
     </a>
-    <a routerLink="/schedules" class="stat" [style.--i]="2">
-      <span class="stat__label">Plannings</span>
-      <span class="stat__value" [appCountUp]="schedules().length"></span>
-      <span class="stat__meta">{{
+    <a routerLink="/schedules" class="figure">
+      <span class="figure__value">{{ schedules().length }}</span>
+      <span class="figure__label">plannings</span>
+      <span class="figure__meta">{{
         schedules().length > 0
           ? 'dernier ' + relativeDate(latestSchedule()!.updatedAt)
           : 'aucun pour l’instant'
@@ -37,33 +46,33 @@
     @if (latestSchedule(); as s) {
       <a
         [routerLink]="['/schedules', s.id]"
-        class="stat stat--hero"
-        [style.--i]="3"
-        [class.stat--good]="s.score === 100"
-        [class.stat--warn]="s.score !== null && s.score < 100"
+        class="figure"
+        [class.figure--accent]="s.score !== null"
       >
-        <span class="stat__label">Score · {{ s.name }}</span>
-        <span class="stat__value"
+        <span class="figure__value"
           >{{ s.score ?? '—'
-          }}<span class="stat__unit">{{ s.score !== null ? ' / 100' : '' }}</span></span
+          }}<span class="figure__unit">{{ s.score !== null ? '/100' : '' }}</span></span
         >
-        <span class="stat__meta">{{
+        <span class="figure__label">score du dernier planning</span>
+        <span class="figure__meta">{{
           s.score === null
-            ? 'planning manuel, pas encore résolu'
-            : s.assignmentCount + ' affectation(s)'
+            ? 'manuel, pas encore résolu'
+            : s.assignmentCount + ' affectation(s), 0 conflit garanti'
         }}</span>
       </a>
     }
   </section>
 
   @if (latestDetail(); as detail) {
-    <section class="panel viz" [style.--i]="3">
+    <section class="panel viz">
       <div class="panel__head">
         <div>
           <h2>Occupation de la semaine</h2>
           <p class="panel__sub">{{ detail.name }} · activités simultanées par heure</p>
         </div>
-        <a [routerLink]="['/schedules', detail.id]" class="panel__link">Ouvrir</a>
+        <a [routerLink]="['/schedules', detail.id]" class="btn btn--plain btn--sm"
+          >Ouvrir le planning</a
+        >
       </div>
 
       @if (detail.assignments.length === 0) {
@@ -72,7 +81,7 @@
         <div class="heat">
           <div class="heat__corner"></div>
           @for (h of heatHours; track h) {
-            <div class="heat__hour">{{ h }}h</div>
+            <div class="heat__hour">{{ h }}</div>
           }
           @for (row of heatmap(); track $index; let d = $index) {
             <div class="heat__day">{{ dayLabels[d] }}</div>
@@ -104,9 +113,9 @@
     </section>
   }
 
-  <div class="grid">
+  <div class="sections">
     @if (occupancy().length > 0) {
-      <section class="panel" [style.--i]="4">
+      <section class="section">
         <div class="panel__head">
           <div>
             <h2>Taux d'occupation</h2>
@@ -117,7 +126,6 @@
           @for (o of occupancy(); track o.id) {
             <li
               class="meters__row"
-              [style.--i]="$index"
               [title]="formatMinutes(o.bookedMinutes) + ' sur ' + formatMinutes(o.capacityMinutes)"
             >
               <span class="meters__label">
@@ -127,11 +135,11 @@
               <span class="meters__track">
                 <span
                   class="meters__fill"
-                  [style.width.%]="o.ratio * 100"
+                  [style.--w]="o.ratio"
                   [class.is-high]="o.ratio >= 0.85"
                 ></span>
               </span>
-              <span class="meters__value">{{ (o.ratio * 100).toFixed(0) }}%</span>
+              <span class="meters__value">{{ (o.ratio * 100).toFixed(0) }} %</span>
             </li>
           }
         </ul>
@@ -139,7 +147,7 @@
     }
 
     @if (activeActivities() > 0) {
-      <section class="panel" [style.--i]="5">
+      <section class="section">
         <div class="panel__head">
           <div>
             <h2>Activités par priorité</h2>
@@ -148,12 +156,10 @@
         </div>
         <ul class="bars">
           @for (p of byPriority(); track p.priority) {
-            <li class="bars__row" [style.--i]="$index">
-              <span class="bars__label"
-                ><span class="prio" [attr.data-level]="p.priority">P{{ p.priority }}</span></span
-              >
+            <li class="bars__row">
+              <span class="bars__label">Priorité {{ p.priority }}</span>
               <span class="bars__track"
-                ><span class="bars__fill" [style.width.%]="p.ratio * 100"></span
+                ><span class="bars__fill" [style.--w]="p.ratio"></span
               ></span>
               <span class="bars__value">{{ p.count }}</span>
             </li>
@@ -169,7 +175,7 @@
             <span class="meters__track meters__track--lg">
               <span
                 class="meters__fill"
-                [style.width.%]="pr.ratio * 100"
+                [style.--w]="pr.ratio"
                 [class.is-high]="pr.ratio === 1"
               ></span>
             </span>
@@ -178,11 +184,10 @@
       </section>
     }
 
-    <!-- Ressources par type -->
-    <section class="panel" [style.--i]="6">
+    <section class="section">
       <div class="panel__head">
         <h2>Ressources par type</h2>
-        <a routerLink="/resources" class="panel__link">Voir tout</a>
+        <a routerLink="/resources" class="btn btn--plain btn--sm">Tout voir</a>
       </div>
       @if (resourcesByKind().length === 0) {
         <p class="empty-hint">
@@ -191,10 +196,10 @@
       } @else {
         <ul class="bars">
           @for (k of resourcesByKind(); track k.kind) {
-            <li class="bars__row" [style.--i]="$index">
+            <li class="bars__row">
               <span class="bars__label">{{ k.kind }}</span>
               <span class="bars__track"
-                ><span class="bars__fill" [style.width.%]="k.ratio * 100"></span
+                ><span class="bars__fill" [style.--w]="k.ratio"></span
               ></span>
               <span class="bars__value">{{ k.count }}</span>
             </li>
@@ -203,11 +208,10 @@
       }
     </section>
 
-    <!-- Plannings récents -->
-    <section class="panel" [style.--i]="7">
+    <section class="section">
       <div class="panel__head">
         <h2>Plannings récents</h2>
-        <a routerLink="/schedules" class="panel__link">Voir tout</a>
+        <a routerLink="/schedules" class="btn btn--plain btn--sm">Tout voir</a>
       </div>
       @if (recentSchedules().length === 0) {
         <p class="empty-hint">Aucun planning. <a routerLink="/schedules">En créer un</a></p>
@@ -226,11 +230,12 @@
                   class="badge"
                   [class.badge--ok]="s.status === 'Published'"
                   [class.badge--off]="s.status !== 'Published'"
-                  >{{ s.status }}</span
+                  >{{ statusLabels[s.status] }}</span
                 >
                 @if (s.score !== null) {
                   <span class="list__score" [class.is-good]="s.score === 100">{{ s.score }}</span>
                 }
+                <app-icon class="list__chevron" name="chevronRight" />
               </a>
             </li>
           }
@@ -238,22 +243,29 @@
       }
     </section>
 
-    <!-- Pour bien démarrer -->
-    <section class="panel steps" [style.--i]="8">
-      <div class="panel__head">
-        <h2>{{ isEmpty() ? 'Pour bien démarrer' : 'Votre progression' }}</h2>
-      </div>
-      <ol class="steps__list">
-        @for (step of steps(); track step.label; let i = $index) {
-          <li class="steps__item" [class.is-done]="step.done">
-            <span class="steps__num">{{ step.done ? '✓' : i + 1 }}</span>
-            <a [routerLink]="step.link" class="steps__body">
-              <span class="steps__label">{{ step.label }}</span>
-              <span class="steps__hint">{{ step.hint }}</span>
-            </a>
-          </li>
-        }
-      </ol>
-    </section>
+    @if (!allStepsDone()) {
+      <section class="section steps">
+        <div class="panel__head">
+          <h2>{{ isEmpty() ? 'Pour commencer' : 'Progression' }}</h2>
+        </div>
+        <ol class="steps__list">
+          @for (step of steps(); track step.label; let i = $index) {
+            <li class="steps__item" [class.is-done]="step.done">
+              <span class="steps__num">
+                @if (step.done) {
+                  <app-icon name="check" />
+                } @else {
+                  {{ i + 1 }}
+                }
+              </span>
+              <a [routerLink]="step.link" class="steps__body">
+                <span class="steps__label">{{ step.label }}</span>
+                <span class="steps__hint">{{ step.hint }}</span>
+              </a>
+            </li>
+          }
+        </ol>
+      </section>
+    }
   </div>
 }

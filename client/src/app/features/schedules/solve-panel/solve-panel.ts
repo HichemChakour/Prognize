@@ -6,8 +6,10 @@ import { ScheduleDetail } from '../../../core/schedules/schedule.models';
 import { Schedules } from '../../../core/schedules/schedules';
 import { toDateInput } from '../../../core/schedules/time';
 
+import { Icon } from '../../../shared/directives/icon';
+
 @Component({
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Icon],
   selector: 'app-solve-panel',
   styleUrl: './solve-panel.scss',
   templateUrl: './solve-panel.html',

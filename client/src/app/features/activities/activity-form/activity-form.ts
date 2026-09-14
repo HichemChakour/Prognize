@@ -25,8 +25,10 @@ type RequirementGroup = FormGroup<{
   minCapacity: FormControl<number | null>;
 }>;
 
+import { Icon } from '../../../shared/directives/icon';
+
 @Component({
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, Icon],
   selector: 'app-activity-form',
   styleUrl: './activity-form.scss',
   templateUrl: './activity-form.html',

@@ -1,14 +1,13 @@
 <div class="shell" [class.is-rail]="isRail()" [class.is-drawer-open]="drawerOpen()">
-  <!-- ===== Sidebar (desktop / tablette) & Drawer (mobile) ===== -->
   <aside class="sidebar" [attr.aria-hidden]="viewport.isMobile() && !drawerOpen()">
     <div class="sidebar__top">
-      <a routerLink="/" class="brand" [title]="'Prognize'">
+      <a routerLink="/" class="brand" title="Prognize">
         <span class="brand__logo">P</span>
         <span class="brand__name">Prognize</span>
       </a>
       @if (viewport.isMobile()) {
         <button type="button" class="icon-btn" (click)="toggleDrawer()" aria-label="Fermer le menu">
-          <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          <app-icon name="close" />
         </button>
       }
     </div>
@@ -23,9 +22,8 @@
           ariaCurrentWhenActive="page"
           [title]="isRail() ? item.label : null"
         >
-          <svg class="nav__icon" viewBox="0 0 24 24"><path [attr.d]="item.icon" /></svg>
+          <app-icon class="nav__icon" [name]="item.icon" />
           <span class="nav__label">{{ item.label }}</span>
-          <span class="nav__indicator" aria-hidden="true"></span>
         </a>
       }
     </nav>
@@ -48,7 +46,7 @@
           [title]="theme.label()"
           [attr.aria-label]="theme.label()"
         >
-          {{ theme.icon() }}
+          <app-icon [name]="theme.icon()" />
         </button>
         <button
           type="button"
@@ -57,19 +55,17 @@
           title="Déconnexion"
           aria-label="Déconnexion"
         >
-          <svg viewBox="0 0 24 24"><path d="M10 4H5v16h5M14 8l4 4-4 4M18 12H9" /></svg>
+          <app-icon name="logout" />
         </button>
         @if (viewport.isDesktop()) {
           <button
             type="button"
             class="icon-btn sidebar__collapse"
             (click)="toggleCollapsed()"
-            [title]="collapsed() ? 'Déplier' : 'Replier'"
+            [title]="collapsed() ? 'Déplier la barre latérale' : 'Replier la barre latérale'"
             [attr.aria-expanded]="!collapsed()"
           >
-            <svg viewBox="0 0 24 24">
-              <path [attr.d]="collapsed() ? 'M9 6l6 6-6 6' : 'M15 6l-6 6 6 6'" />
-            </svg>
+            <app-icon name="sidebar" />
           </button>
         }
       </div>
@@ -80,7 +76,6 @@
     <div class="scrim" (click)="toggleDrawer()" aria-hidden="true"></div>
   }
 
-  <!-- ===== Zone principale ===== -->
   <div class="main">
     <header class="topbar">
       @if (viewport.isMobile()) {
@@ -91,7 +86,7 @@
           aria-label="Ouvrir le menu"
           [attr.aria-expanded]="drawerOpen()"
         >
-          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+          <app-icon name="menu" />
         </button>
       }
       <h2 class="topbar__title">{{ pageTitle() }}</h2>
@@ -108,7 +103,7 @@
           >
             <span class="avatar avatar--sm">{{ initials() }}</span>
             <span class="user-menu__name">{{ user.displayName }}</span>
-            <svg class="user-menu__chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" /></svg>
+            <app-icon class="user-menu__chevron" name="chevronDown" />
           </button>
           @if (userMenuOpen()) {
             <div class="user-menu__panel" role="menu">
@@ -119,11 +114,47 @@
                   >{{ user.organizationName }} · {{ user.role }}</span
                 >
               </div>
-              <button type="button" role="menuitem" (click)="theme.cycle()">
-                {{ theme.icon() }}&nbsp; {{ theme.label() }}
-              </button>
-              <button type="button" role="menuitem" class="is-danger" (click)="auth.logout()">
-                ⎋&nbsp; Déconnexion
+
+              <div class="user-menu__section">
+                <span class="user-menu__label">Apparence</span>
+                <div class="segmented" role="radiogroup" aria-label="Thème">
+                  <button
+                    type="button"
+                    role="radio"
+                    [attr.aria-checked]="theme.mode() === 'system'"
+                    [class.is-on]="theme.mode() === 'system'"
+                    (click)="theme.set('system')"
+                  >
+                    Auto
+                  </button>
+                  <button
+                    type="button"
+                    role="radio"
+                    [attr.aria-checked]="theme.mode() === 'light'"
+                    [class.is-on]="theme.mode() === 'light'"
+                    (click)="theme.set('light')"
+                  >
+                    Clair
+                  </button>
+                  <button
+                    type="button"
+                    role="radio"
+                    [attr.aria-checked]="theme.mode() === 'dark'"
+                    [class.is-on]="theme.mode() === 'dark'"
+                    (click)="theme.set('dark')"
+                  >
+                    Sombre
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                role="menuitem"
+                class="user-menu__item is-danger"
+                (click)="auth.logout()"
+              >
+                <app-icon name="logout" /> Se déconnecter
               </button>
             </div>
           }

@@ -1,8 +1,6 @@
 .side-panel {
-  animation: pop-in var(--dur-slow) var(--ease-spring) both;
-  box-shadow: var(--shadow);
   position: sticky;
-  top: 76px;
+  top: 68px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -27,7 +25,7 @@
     align-items: center;
     gap: 0.5rem;
     padding-top: 0.75rem;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid var(--separator);
     .spacer {
       flex: 1;
     }
@@ -39,32 +37,38 @@
   padding: 0;
   border: 0;
   legend {
-    font-size: 0.9rem;
-    font-weight: 600;
     margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-2);
   }
-
   &__grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem;
+    gap: 0.3rem;
   }
-
   &__choice {
-    padding: 0.3rem 0.6rem;
-    border: 1px solid var(--border);
+    height: 28px;
+    padding: 0 0.65rem;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--separator-strong);
     border-radius: 999px;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     cursor: pointer;
     user-select: none;
+    transition:
+      background var(--t) var(--ease),
+      border-color var(--t) var(--ease),
+      color var(--t) var(--ease);
     input {
       display: none;
     }
     &.is-on {
-      background: var(--primary-soft);
-      border-color: var(--primary-ink);
-      color: var(--primary-ink);
-      font-weight: 600;
+      background: var(--accent-tint);
+      border-color: var(--accent-mark);
+      color: var(--accent-ink);
+      font-weight: 500;
     }
   }
 }
@@ -76,14 +80,14 @@
     z-index: 30;
     max-height: 85vh;
     overflow-y: auto;
-    border-radius: var(--radius) var(--radius) 0 0;
-    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.25);
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    box-shadow: var(--shadow-float);
     padding-bottom: calc(1rem + env(safe-area-inset-bottom));
   }
   .side-panel__row {
     grid-template-columns: 1fr 1fr;
-  }
-  .side-panel__row .field:last-child {
-    grid-column: 1 / -1;
+    .field:last-child {
+      grid-column: 1 / -1;
+    }
   }
 }

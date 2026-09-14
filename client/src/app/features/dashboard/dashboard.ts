@@ -1,13 +1,17 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CountUp } from '../../shared/directives/count-up';
+import { Icon } from '../../shared/directives/icon';
 import { forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { Activities } from '../../core/activities/activities';
 import { Activity } from '../../core/activities/activity.models';
 import { Auth } from '../../core/auth/auth';
 import { Resource } from '../../core/resources/resource.models';
 import { Resources } from '../../core/resources/resources';
-import { ScheduleDetail, ScheduleSummary } from '../../core/schedules/schedule.models';
+import {
+  SCHEDULE_STATUS_LABELS,
+  ScheduleDetail,
+  ScheduleSummary,
+} from '../../core/schedules/schedule.models';
 import { Schedules } from '../../core/schedules/schedules';
 
 interface KindCount {
@@ -43,12 +47,13 @@ const DAY_LABELS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 const DEFAULT_CAPACITY_MINUTES = 5 * 10 * 60; // 5 jours × 10 h si aucune disponibilité déclarée
 
 @Component({
-  imports: [RouterLink, CountUp],
+  imports: [RouterLink, Icon],
   selector: 'app-dashboard',
   styleUrl: './dashboard.scss',
   templateUrl: './dashboard.html',
 })
 export class Dashboard {
+  readonly statusLabels = SCHEDULE_STATUS_LABELS;
   protected readonly auth = inject(Auth);
   private readonly resourcesApi = inject(Resources);
   private readonly activitiesApi = inject(Activities);
@@ -202,6 +207,8 @@ export class Dashboard {
       hint: 'à la main ou avec le solveur',
     },
   ]);
+
+  readonly allStepsDone = computed(() => this.steps().every((s) => s.done));
 
   constructor() {
     forkJoin({

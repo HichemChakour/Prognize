@@ -5,7 +5,7 @@
       Une salle, une personne, un équipement… tout ce qui peut être planifié.
     </p>
   </div>
-  <a routerLink="/resources" class="btn btn--ghost">← Retour</a>
+  <a routerLink="/resources" class="btn btn--ghost"><app-icon name="arrowLeft" /> Retour</a>
 </header>
 
 @if (loading()) {
@@ -73,7 +73,7 @@
       <div class="attributes__header">
         <h2>Attributs</h2>
         <button type="button" class="btn btn--sm btn--ghost" (click)="addAttribute()">
-          + Ajouter
+          <app-icon name="plus" /> Ajouter
         </button>
       </div>
       <p class="field__hint">
@@ -87,11 +87,11 @@
           <input type="text" formControlName="value" placeholder="valeur (ex: B)" />
           <button
             type="button"
-            class="btn btn--sm btn--danger"
+            class="btn btn--sm btn--icon btn--danger"
             (click)="removeAttribute(i)"
             aria-label="Supprimer"
           >
-            ✕
+            <app-icon name="close" />
           </button>
         </div>
       } @empty {
@@ -103,7 +103,7 @@
       <div class="attributes__header">
         <h2>Disponibilités</h2>
         <button type="button" class="btn btn--sm btn--ghost" (click)="addWindow()">
-          + Ajouter un créneau
+          <app-icon name="plus" /> Ajouter un créneau
         </button>
       </div>
       <p class="field__hint">
@@ -118,15 +118,15 @@
             }
           </select>
           <input type="time" formControlName="start" step="300" />
-          <span class="window-row__sep">→</span>
+          <span class="window-row__sep" aria-hidden="true">–</span>
           <input type="time" formControlName="end" step="300" />
           <button
             type="button"
-            class="btn btn--sm btn--danger"
+            class="btn btn--sm btn--icon btn--danger"
             (click)="removeWindow(i)"
             aria-label="Supprimer"
           >
-            ✕
+            <app-icon name="close" />
           </button>
           @if (windowInvalid(group)) {
             <small class="field__error window-row__error">La fin doit être après le début.</small>

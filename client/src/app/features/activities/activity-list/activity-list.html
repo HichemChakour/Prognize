@@ -4,7 +4,9 @@
     <p class="page-header__subtitle">{{ activities().length }} à planifier</p>
   </div>
   @if (isAdmin()) {
-    <a routerLink="/activities/new" class="btn btn--primary">+ Nouvelle activité</a>
+    <a routerLink="/activities/new" class="btn btn--primary"
+      ><app-icon name="plus" /> Nouvelle activité</a
+    >
   }
 </header>
 
@@ -63,12 +65,20 @@
             </td>
             @if (isAdmin()) {
               <td class="actions">
-                <a [routerLink]="['/activities', a.id, 'edit']" class="btn btn--sm btn--ghost"
-                  >Modifier</a
-                >
-                <button type="button" class="btn btn--sm btn--danger" (click)="remove(a)">
-                  Supprimer
-                </button>
+                <span class="row-actions">
+                  <a [routerLink]="['/activities', a.id, 'edit']" class="btn btn--sm btn--ghost"
+                    >Modifier</a
+                  >
+                  <button
+                    type="button"
+                    class="btn btn--sm btn--icon btn--danger"
+                    (click)="remove(a)"
+                    aria-label="Supprimer"
+                    title="Supprimer"
+                  >
+                    <app-icon name="trash" />
+                  </button>
+                </span>
               </td>
             }
           </tr>

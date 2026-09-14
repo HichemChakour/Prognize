@@ -2,6 +2,12 @@ import { DayOfWeek } from '../resources/resource.models';
 
 export type ScheduleStatus = 'Draft' | 'Published' | 'Archived';
 
+export const SCHEDULE_STATUS_LABELS: Record<ScheduleStatus, string> = {
+  Draft: 'Brouillon',
+  Published: 'Publié',
+  Archived: 'Archivé',
+};
+
 export type ConflictType =
   | 'ResourceDoubleBooked'
   | 'ResourceUnavailable'

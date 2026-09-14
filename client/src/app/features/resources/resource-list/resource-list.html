@@ -4,7 +4,9 @@
     <p class="page-header__subtitle">{{ resources().length }} au total</p>
   </div>
   @if (isAdmin()) {
-    <a routerLink="/resources/new" class="btn btn--primary">+ Nouvelle ressource</a>
+    <a routerLink="/resources/new" class="btn btn--primary"
+      ><app-icon name="plus" /> Nouvelle ressource</a
+    >
   }
 </header>
 
@@ -14,15 +16,40 @@
   <p class="alert alert--error">{{ message }}</p>
 } @else {
   <div class="toolbar">
-    <label class="field field--inline">
-      <span>Type</span>
-      <select (change)="kindFilter.set($any($event.target).value || null)">
-        <option value="">Tous</option>
+    @if (kinds().length <= 5) {
+      <div class="segmented" role="radiogroup" aria-label="Type de ressource">
+        <button
+          type="button"
+          role="radio"
+          [attr.aria-checked]="kindFilter() === null"
+          [class.is-on]="kindFilter() === null"
+          (click)="kindFilter.set(null)"
+        >
+          Tous
+        </button>
         @for (k of kinds(); track k) {
-          <option [value]="k">{{ k }}</option>
+          <button
+            type="button"
+            role="radio"
+            [attr.aria-checked]="kindFilter() === k"
+            [class.is-on]="kindFilter() === k"
+            (click)="kindFilter.set(k)"
+          >
+            {{ k }}
+          </button>
         }
-      </select>
-    </label>
+      </div>
+    } @else {
+      <label class="field field--inline">
+        <span>Type</span>
+        <select (change)="kindFilter.set($any($event.target).value || null)">
+          <option value="">Tous</option>
+          @for (k of kinds(); track k) {
+            <option [value]="k">{{ k }}</option>
+          }
+        </select>
+      </label>
+    }
     <span class="toolbar__count">{{ filtered().length }} affichée(s)</span>
   </div>
 
@@ -58,12 +85,20 @@
             </td>
             @if (isAdmin()) {
               <td class="actions">
-                <a [routerLink]="['/resources', r.id, 'edit']" class="btn btn--sm btn--ghost"
-                  >Modifier</a
-                >
-                <button type="button" class="btn btn--sm btn--danger" (click)="remove(r)">
-                  Supprimer
-                </button>
+                <span class="row-actions">
+                  <a [routerLink]="['/resources', r.id, 'edit']" class="btn btn--sm btn--ghost"
+                    >Modifier</a
+                  >
+                  <button
+                    type="button"
+                    class="btn btn--sm btn--icon btn--danger"
+                    (click)="remove(r)"
+                    aria-label="Supprimer"
+                    title="Supprimer"
+                  >
+                    <app-icon name="trash" />
+                  </button>
+                </span>
               </td>
             }
           </tr>

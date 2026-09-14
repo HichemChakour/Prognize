@@ -2,16 +2,18 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Auth } from '../../../core/auth/auth';
-import { ScheduleSummary } from '../../../core/schedules/schedule.models';
+import { SCHEDULE_STATUS_LABELS, ScheduleSummary } from '../../../core/schedules/schedule.models';
 import { Schedules } from '../../../core/schedules/schedules';
+import { Icon } from '../../../shared/directives/icon';
 
 @Component({
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, Icon],
   selector: 'app-schedule-list',
   styleUrl: './schedule-list.scss',
   templateUrl: './schedule-list.html',
 })
 export class ScheduleList {
+  readonly statusLabels = SCHEDULE_STATUS_LABELS;
   private readonly api = inject(Schedules);
   private readonly auth = inject(Auth);
   private readonly fb = inject(FormBuilder);

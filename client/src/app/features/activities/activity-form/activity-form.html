@@ -5,7 +5,7 @@
       Un cours, une réunion, une intervention… quelque chose à placer dans le planning.
     </p>
   </div>
-  <a routerLink="/activities" class="btn btn--ghost">← Retour</a>
+  <a routerLink="/activities" class="btn btn--ghost"><app-icon name="arrowLeft" /> Retour</a>
 </header>
 
 @if (loading()) {
@@ -55,7 +55,7 @@
       <div class="requirements__header">
         <h2>Besoins en ressources</h2>
         <button type="button" class="btn btn--sm btn--ghost" (click)="addRequirement()">
-          + Ajouter un besoin
+          <app-icon name="plus" /> Ajouter un besoin
         </button>
       </div>
       <p class="field__hint">
@@ -92,11 +92,11 @@
 
           <button
             type="button"
-            class="btn btn--sm btn--danger requirements__remove"
+            class="btn btn--sm btn--icon btn--danger requirements__remove"
             (click)="removeRequirement(i)"
             aria-label="Supprimer"
           >
-            ✕
+            <app-icon name="close" />
           </button>
         </div>
       } @empty {

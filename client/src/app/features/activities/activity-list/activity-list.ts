@@ -4,8 +4,10 @@ import { Activities } from '../../../core/activities/activities';
 import { Activity } from '../../../core/activities/activity.models';
 import { Auth } from '../../../core/auth/auth';
 
+import { Icon } from '../../../shared/directives/icon';
+
 @Component({
-  imports: [RouterLink],
+  imports: [RouterLink, Icon],
   selector: 'app-activity-list',
   styleUrl: './activity-list.scss',
   templateUrl: './activity-list.html',
